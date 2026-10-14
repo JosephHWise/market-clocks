@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;700&display=swap">
 <style>
-/* Layout: a bank-lobby wall. One row of six station clocks, each over an engraved nameplate. */
+/* Layout: a bank-lobby wall. Three rows of three digital clocks, each over an engraved nameplate. */
 :root {
   --wall: #e7e9ec;
   --wall-edge: #d5d9de;
@@ -93,12 +93,12 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Top six markets by properties in escrow · 39 in escrow as of Oct 14, 2026</div>
+    <div class="sub" id="asof">Nine markets · 39 in escrow as of Oct 14, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <footer>
     Counts come from the In Escrow group on the Kingdom Homes board in monday.com, grouped by the Market (State) column, pulled Oct 14, 2026. Escrow Purgatory deals are not counted.
-    Tennessee takes the sixth spot from a five-way tie at 2 (Florida, Missouri, Alabama, Indiana, Tennessee) because both of its deals are in Memphis.
+    The top five states by escrow count are shown first, then Tennessee, Indiana and Missouri from the group tied at 2 (Florida and Alabama also have 2), plus Arizona.
     Tour hours are 9 AM to 6 PM local time.
   </footer>
 </div>
@@ -112,6 +112,9 @@ const MARKETS = [
   { name: "Oklahoma",       tz: "America/Chicago",  count: 5, cities: "Oklahoma City 3 · Tulsa 2" },
   { name: "South Carolina", tz: "America/New_York", count: 3, cities: "Columbia 2 · Spartanburg" },
   { name: "Tennessee",      tz: "America/Chicago",  count: 2, cities: "Memphis 2" },
+  { name: "Indiana",        tz: "America/Indiana/Indianapolis", count: 2, cities: "Indianapolis · South Bend" },
+  { name: "Missouri",       tz: "America/Chicago",  count: 2, cities: "Kansas City · St. Louis" },
+  { name: "Arizona",        tz: "America/Phoenix",  count: 0, cities: "No deals in escrow yet" },
 ];
 const TOUR_START = 9, TOUR_END = 18;
 
