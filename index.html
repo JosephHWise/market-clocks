@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}</style>
+<title>Kingdom Homes Market Clocks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: a bank-lobby wall. One row of six station clocks, each over an engraved nameplate. */
+:root {
+  --wall: #e7e9ec;
+  --wall-edge: #d5d9de;
+  --plate: #2c3440;
+  --plate-ink: #e9e4d6;
+  --face: #fbfbf8;
+  --bezel: #1f252d;
+  --ink: #1b2028;
+  --muted: #5f6873;
+  --tick: #262b33;
+  --second: #b3261e;
+  --open: #2e7d4f;
+  --closed: #8a6d1f;
+  --led: #ff5a3c;
+  --led-glow: rgba(255, 90, 60, .45);
+  --font-display: "Cormorant SC", "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --wall: #161a20; --wall-edge: #252b33; --plate: #c9b98f; --plate-ink: #1d1a12;
+    --face: #eeece4; --bezel: #0b0d10; --ink: #e8eaee; --muted: #9aa3ae;
+    --tick: #262b33; --second: #c8352b; --open: #5fbf86; --closed: #d4b25a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --wall: #161a20; --wall-edge: #252b33; --plate: #c9b98f; --plate-ink: #1d1a12;
+  --face: #eeece4; --bezel: #0b0d10; --ink: #e8eaee; --muted: #9aa3ae;
+  --tick: #262b33; --second: #c8352b; --open: #5fbf86; --closed: #d4b25a;
+  color-scheme: dark;
+}
+body { background: var(--wall); color: var(--ink); font-family: var(--font-body); }
+.wrap {
+  max-width: 1180px; margin: 0 auto;
+  padding-block: 32px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 28px;
+}
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; border-bottom: 1px solid var(--wall-edge); padding-bottom: 14px; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: 2rem; letter-spacing: .04em; margin: 0; text-wrap: balance; }
+.sub { color: var(--muted); font-size: .9rem; }
+.wall {
+  display: grid; gap: 32px 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 560px) { .wall { gap: 22px 8px; } }
+.station { display: grid; justify-items: center; gap: 12px; min-width: 0; }
+.led {
+  width: 100%; background: var(--bezel); border-radius: 10px; container-type: inline-size; overflow: hidden;
+  padding: clamp(14px, 3vw, 30px) 6px clamp(10px, 2vw, 20px); display: grid; justify-items: center; gap: 4px;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.06);
+}
+.led .time { font-family: var(--font-mono); font-weight: 700; color: var(--led); font-size: min(26cqi, 6.5rem); line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: .02em; text-shadow: 0 0 12px var(--led-glow); white-space: nowrap; }
+.led .time .colon { animation: blink 1s steps(1) infinite; }
+.led .ampm { font-family: var(--font-mono); font-weight: 700; color: var(--led); font-size: clamp(.9rem, 2.2vw, 1.5rem); letter-spacing: .15em; opacity: .85; }
+@keyframes blink { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .led .time .colon { animation: none; } }
+.plate {
+  background: var(--plate); color: var(--plate-ink);
+  width: 100%; border-radius: 3px;
+  padding: 9px 10px 10px; text-align: center; display: grid; gap: 2px;
+}
+.plate .name { font-family: var(--font-display); font-weight: 700; font-size: clamp(1rem, 2.4vw, 1.6rem); letter-spacing: .06em; line-height: 1.1; }
+.plate .tz { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; opacity: .8; }
+.meta { display: grid; gap: 4px; justify-items: center; text-align: center; min-width: 0; }
+.digital { font-family: var(--font-mono); font-size: 1rem; font-variant-numeric: tabular-nums; }
+.count { font-size: clamp(.9rem, 1.8vw, 1.2rem); font-weight: 600; color: var(--muted); }
+.count b { color: var(--ink); font-size: 1.35em; font-weight: 700; font-variant-numeric: tabular-nums; }
+.cities { font-size: clamp(.78rem, 1.4vw, .95rem); font-weight: 500; color: var(--muted); line-height: 1.35; }
+.pill { font-size: clamp(.7rem, 1.3vw, .85rem); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; }
+.pill.open { color: var(--open); }
+.pill.closed { color: var(--closed); }
+footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall-edge); padding-top: 12px; line-height: 1.5; max-width: 80ch; }
+@media (prefers-reduced-motion: reduce) { .hand { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Kingdom Homes · Market Clocks</h1>
+    <div class="sub" id="asof">Top six markets by properties in escrow · 39 in escrow as of Oct 14, 2026</div>
+  </header>
+  <section class="wall" id="wall" aria-label="Market clocks"></section>
+  <footer>
+    Counts come from the In Escrow group on the Kingdom Homes board in monday.com, grouped by the Market (State) column, pulled Oct 14, 2026. Escrow Purgatory deals are not counted.
+    Tennessee takes the sixth spot from a five-way tie at 2 (Florida, Missouri, Alabama, Indiana, Tennessee) because both of its deals are in Memphis.
+    Tour hours are 9 AM to 6 PM local time.
+  </footer>
+</div>
+
+<script>
+// Edit this list to swap markets. Order sets the wall order.
+const MARKETS = [
+  { name: "North Carolina", tz: "America/New_York", count: 6, cities: "Charlotte 3 · Fayetteville · Greensboro · Greenville" },
+  { name: "Virginia",       tz: "America/New_York", count: 5, cities: "Norfolk 4 · Richmond" },
+  { name: "Ohio",           tz: "America/New_York", count: 5, cities: "Cleveland 3 · Akron · Toledo" },
+  { name: "Oklahoma",       tz: "America/Chicago",  count: 5, cities: "Oklahoma City 3 · Tulsa 2" },
+  { name: "South Carolina", tz: "America/New_York", count: 3, cities: "Columbia 2 · Spartanburg" },
+  { name: "Tennessee",      tz: "America/Chicago",  count: 2, cities: "Memphis 2" },
+];
+const TOUR_START = 9, TOUR_END = 18;
+
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, parent) {
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function buildFace() {
+  const svg = el("svg", { viewBox: "-100 -100 200 200", role: "img" });
+  el("circle", { r: 98, fill: "var(--bezel)" }, svg);
+  el("circle", { r: 90, fill: "var(--face)" }, svg);
+  for (let i = 0; i < 60; i++) {
+    const major = i % 5 === 0;
+    el("line", {
+      x1: 0, y1: -86, x2: 0, y2: major ? -72 : -81,
+      stroke: "var(--tick)", "stroke-width": major ? 4 : 1.4,
+      transform: `rotate(${i * 6})`
+    }, svg);
+  }
+  const hour = el("line", { x1: 0, y1: 12, x2: 0, y2: -46, stroke: "var(--tick)", "stroke-width": 7, "stroke-linecap": "round", class: "hand" }, svg);
+  const min = el("line", { x1: 0, y1: 14, x2: 0, y2: -68, stroke: "var(--tick)", "stroke-width": 4.5, "stroke-linecap": "round", class: "hand" }, svg);
+  const sec = el("g", { class: "hand" }, svg);
+  el("line", { x1: 0, y1: 20, x2: 0, y2: -74, stroke: "var(--second)", "stroke-width": 1.8 }, sec);
+  el("circle", { cy: -56, r: 4.5, fill: "var(--second)" }, sec);
+  el("circle", { r: 4, fill: "var(--second)" }, svg);
+  return { svg, hour, min, sec };
+}
+
+const parts = {};
+function localParts(tz, d) {
+  const f = new Intl.DateTimeFormat("en-US", { timeZone: tz, hour: "numeric", minute: "numeric", second: "numeric", hourCycle: "h23", timeZoneName: "short" });
+  const o = {};
+  for (const p of f.formatToParts(d)) o[p.type] = p.value;
+  return { h: +o.hour, m: +o.minute, s: +o.second, abbr: o.timeZoneName };
+}
+
+const wall = document.getElementById("wall");
+const stations = MARKETS.map(mk => {
+  const st = document.createElement("article");
+  st.className = "station";
+  const clockBox = document.createElement("div");
+  clockBox.className = "led";
+  clockBox.setAttribute("role", "timer");
+  clockBox.setAttribute("aria-label", `${mk.name} local time`);
+  clockBox.innerHTML = `<span class="time"><span class="hh"></span><span class="colon">:</span><span class="mm"></span></span><span class="ampm"></span>`;
+  const plate = document.createElement("div");
+  plate.className = "plate";
+  plate.innerHTML = `<span class="name"></span><span class="tz"></span>`;
+  plate.querySelector(".name").textContent = mk.name;
+  const meta = document.createElement("div");
+  meta.className = "meta";
+  meta.innerHTML = `<span class="pill"></span><span class="count"><b></b> in escrow</span><span class="cities"></span>`;
+  meta.querySelector(".count b").textContent = mk.count;
+  meta.querySelector(".cities").textContent = mk.cities;
+  st.append(clockBox, plate, meta);
+  wall.appendChild(st);
+  return { mk, hh: clockBox.querySelector(".hh"), mm: clockBox.querySelector(".mm"), ampm: clockBox.querySelector(".ampm"), tzEl: plate.querySelector(".tz"), pill: meta.querySelector(".pill") };
+});
+
+function tick() {
+  const now = new Date();
+  for (const s of stations) {
+    const t = localParts(s.mk.tz, now);
+    s.hh.textContent = t.h % 12 || 12;
+    s.mm.textContent = String(t.m).padStart(2, "0");
+    s.ampm.textContent = t.h < 12 ? "AM" : "PM";
+    s.tzEl.textContent = t.abbr;
+    const open = t.h >= TOUR_START && t.h < TOUR_END;
+    s.pill.textContent = open ? "Tour hours" : "After hours";
+    s.pill.className = "pill " + (open ? "open" : "closed");
+  }
+}
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
