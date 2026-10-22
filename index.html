@@ -102,6 +102,10 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 2rem; letter
 .map-head p { margin: 0; color: var(--muted); font-size: .85rem; max-width: 60ch; }
 .map-stage { position: relative; width: 100%; aspect-ratio: 16 / 10; max-width: 100%; }
 .map-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-y; }
+.map-reset { position: absolute; top: 10px; right: 10px; font: 600 .8rem var(--font-body); color: var(--ink); background: var(--wall); border: 1px solid var(--wall-edge); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+.map-reset:hover { border-color: var(--muted); }
+.map-reset:focus-visible { outline: 2px solid var(--led); outline-offset: 2px; }
+.zoom-level { position: absolute; left: 10px; bottom: 10px; font: 700 .75rem var(--font-mono); color: var(--ink); background: var(--wall); border: 1px solid var(--wall-edge); border-radius: 999px; padding: 4px 10px; }
 .legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 8px 12px; }
 .zone { display: grid; grid-template-columns: 12px 1fr auto; align-items: center; gap: 4px 8px; padding: 8px 10px; border-radius: 8px; background: color-mix(in srgb, var(--wall) 55%, transparent); }
 .zone .sw { width: 12px; height: 12px; border-radius: 3px; }
@@ -132,9 +136,9 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
   <aside class="map-panel" aria-label="U.S. time zone map">
     <div class="map-head">
       <h2>Across the Country</h2>
-      <p>States are shaded by time zone. Zones in tour hours light up. Columns show deals in escrow in each market. Drag to turn the map.</p>
+      <p>States are shaded by time zone. Zones in tour hours light up. Columns show deals in escrow in each market. Scroll to zoom in where your cursor is, drag to move or turn, and double-click to reset.</p>
     </div>
-    <div class="map-stage"><canvas id="map" role="img" aria-label="3D map of U.S. time zones with your nine markets marked"></canvas></div>
+    <div class="map-stage"><canvas id="map" role="img" aria-label="3D map of U.S. time zones with your nine markets marked"></canvas><button type="button" class="map-reset" id="map-reset" hidden>Reset view</button><span class="zoom-level" id="zoom-level" hidden></span></div>
     <div class="legend" id="legend"></div>
   </aside>
   <footer>
@@ -249,6 +253,8 @@ const TILT = 50 * Math.PI / 180, DIST = 1500, DEPTH = 12;
 const shapes = STATES.map(s => ({ id: s.id, z: s.id === "AZ" ? "Z" : s.z, rings: s.p.map(r => Float32Array.from(r)) }));
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let colors = {}, W = 0, H = 0, dpr = 1, scale = 1;
+let zoom = 1, panX = 0, panY = 0, panning = false, panStart = null;
+const ZMIN = 1, ZMAX = 5;
 let yaw = 0, yawTarget = 0, dragging = false, dragX = 0, dragYaw = 0, userYaw = null;
 
 function readColors() {
@@ -272,7 +278,7 @@ function project(x, y, h, cy, sy) {
   const yr = yr0 * cy - h * sy;
   const zr = yr0 * sy + h * cy;
   const p = DIST / (DIST - zr);
-  return [W / 2 + xr * p * scale, H * 0.53 + yr * p * scale, p];
+  return [W / 2 + xr * p * scale * zoom + panX, H * 0.53 + yr * p * scale * zoom + panY, p];
 }
 function tracePath(ring, h, cy, sy) {
   ctx.beginPath();
@@ -297,7 +303,7 @@ function draw() {
 
   // extruded sides: stacked layers, all states per layer so tops always win
   ctx.fillStyle = colors.side;
-  for (let h = 0; h < DEPTH; h += 2) {
+  for (let h = 0, stepH = Math.max(0.5, 2 / zoom); h < DEPTH; h += stepH) {
     for (const s of shapes) for (const r of s.rings) { tracePath(r, h, cy, sy); ctx.fill(); }
   }
   // tops
@@ -379,12 +385,65 @@ function frame(now) {
   requestAnimationFrame(frame);
 }
 
-canvas.addEventListener("pointerdown", e => { dragging = true; dragX = e.clientX; dragYaw = userYaw ?? yaw; canvas.setPointerCapture(e.pointerId); canvas.style.cursor = "grabbing"; });
+const resetBtn = document.getElementById("map-reset");
+const zoomLabel = document.getElementById("zoom-level");
+function clampPan() {
+  const lim = (zoom - 1) * 0.55;
+  panX = Math.max(-W * lim, Math.min(W * lim, panX));
+  panY = Math.max(-H * lim, Math.min(H * lim, panY));
+}
+function setZoom(z, mx, my) {
+  const nz = Math.max(ZMIN, Math.min(ZMAX, z));
+  // keep the point under the cursor fixed while zooming
+  const cx = W / 2, cyy = H * 0.53;
+  panX = mx - cx - (mx - cx - panX) * (nz / zoom);
+  panY = my - cyy - (my - cyy - panY) * (nz / zoom);
+  zoom = nz;
+  if (zoom <= 1.001) { zoom = 1; panX = 0; panY = 0; }
+  clampPan();
+  // hold the map still while zoomed in so it doesn't drift under the cursor
+  if (zoom > 1) userYaw = yaw;
+  resetBtn.hidden = zoom === 1;
+  zoomLabel.hidden = zoom === 1;
+  zoomLabel.textContent = `${zoom.toFixed(1)}×`;
+}
+function resetView() {
+  zoom = 1; panX = 0; panY = 0;
+  resetBtn.hidden = true; zoomLabel.hidden = true;
+  userYaw = null;
+}
+canvas.addEventListener("wheel", e => {
+  e.preventDefault();
+  const r = canvas.getBoundingClientRect();
+  const step = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+  setZoom(zoom * Math.exp(-step * 0.0018), e.clientX - r.left, e.clientY - r.top);
+}, { passive: false });
+canvas.addEventListener("dblclick", resetView);
+resetBtn.addEventListener("click", resetView);
+
+canvas.addEventListener("pointerdown", e => {
+  canvas.setPointerCapture(e.pointerId);
+  canvas.style.cursor = "grabbing";
+  if (zoom > 1) { panning = true; panStart = { x: e.clientX, y: e.clientY, px: panX, py: panY }; return; }
+  dragging = true; dragX = e.clientX; dragYaw = userYaw ?? yaw;
+});
 canvas.addEventListener("pointermove", e => {
+  if (panning) {
+    panX = panStart.px + (e.clientX - panStart.x);
+    panY = panStart.py + (e.clientY - panStart.y);
+    clampPan();
+    return;
+  }
   if (!dragging) return;
   userYaw = Math.max(-0.6, Math.min(0.6, dragYaw + (e.clientX - dragX) / 400));
 });
-const endDrag = () => { if (!dragging) return; dragging = false; canvas.style.cursor = ""; setTimeout(() => { if (!dragging) { userYaw = null; t0 = performance.now() - Math.asin(Math.max(-1, Math.min(1, yaw / 0.09))) * 9000; } }, 4000); };
+const endDrag = () => {
+  canvas.style.cursor = "";
+  if (panning) { panning = false; return; }
+  if (!dragging) return;
+  dragging = false;
+  setTimeout(() => { if (!dragging && zoom === 1) { userYaw = null; t0 = performance.now() - Math.asin(Math.max(-1, Math.min(1, yaw / 0.09))) * 9000; } }, 4000);
+};
 canvas.addEventListener("pointerup", endDrag);
 canvas.addEventListener("pointercancel", endDrag);
 
