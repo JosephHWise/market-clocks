@@ -25,10 +25,6 @@
   --map-side: #9aa3ad;
   --map-edge: rgba(255, 255, 255, .55);
   --map-dim: #c9ced4;
-  --map-label: rgba(20, 24, 30, .7);
-  --col-closed: #8a7a4f;
-  --col-closed-hi: #d9c58e;
-  --col-closed-text: #8a7a4f;
   --tz-p: #4f8fbf;
   --tz-m: #7b6fb8;
   --tz-z: #a77fb8;
@@ -44,7 +40,7 @@
   :root:not([data-theme="light"]) {
     --wall: #161a20; --wall-edge: #252b33; --panel: #1b2027; --plate: #c9b98f; --plate-ink: #1d1a12;
     --bezel: #0b0d10; --ink: #e8eaee; --muted: #9aa3ae; --open: #5fbf86; --closed: #d4b25a;
-    --map-side: #0c0f13; --map-edge: rgba(0, 0, 0, .55); --map-dim: #2a3038; --map-label: rgba(255, 255, 255, .78); --col-closed: #b9a978; --col-closed-hi: #f3e7bf; --col-closed-text: #e3d3a0;
+    --map-side: #0c0f13; --map-edge: rgba(0, 0, 0, .55); --map-dim: #2a3038;
     --tz-p: #4d93c9; --tz-m: #8576c9; --tz-z: #b286c7; --tz-c: #3fae95; --tz-e: #d6a646; --tz-a: #6f93ad; --tz-h: #d6826f;
     color-scheme: dark;
   }
@@ -52,7 +48,7 @@
 :root[data-theme="dark"] {
   --wall: #161a20; --wall-edge: #252b33; --panel: #1b2027; --plate: #c9b98f; --plate-ink: #1d1a12;
   --bezel: #0b0d10; --ink: #e8eaee; --muted: #9aa3ae; --open: #5fbf86; --closed: #d4b25a;
-  --map-side: #0c0f13; --map-edge: rgba(0, 0, 0, .55); --map-dim: #2a3038; --map-label: rgba(255, 255, 255, .78); --col-closed: #b9a978; --col-closed-hi: #f3e7bf; --col-closed-text: #e3d3a0;
+  --map-side: #0c0f13; --map-edge: rgba(0, 0, 0, .55); --map-dim: #2a3038;
   --tz-p: #4d93c9; --tz-m: #8576c9; --tz-z: #b286c7; --tz-c: #3fae95; --tz-e: #d6a646; --tz-a: #6f93ad; --tz-h: #d6826f;
   color-scheme: dark;
 }
@@ -94,14 +90,13 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 2rem; letter
 .meta { display: grid; gap: 4px; justify-items: center; text-align: center; min-width: 0; }
 .count { font-size: clamp(.9rem, 1.8vw, 1.2rem); font-weight: 600; color: var(--muted); }
 .count b { color: var(--ink); font-size: 1.35em; font-weight: 700; font-variant-numeric: tabular-nums; }
-.closedct { font-size: clamp(.8rem, 1.5vw, 1rem); font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
 .cities { font-size: clamp(.78rem, 1.4vw, .95rem); font-weight: 500; color: var(--muted); line-height: 1.35; }
 .pill { font-size: clamp(.7rem, 1.3vw, .85rem); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; }
 .pill.open { color: var(--open); }
 .pill.closed { color: var(--closed); }
 
 /* Map panel */
-.map-panel { align-self: start; background: var(--panel); border-radius: 12px; padding: 20px 20px 16px; display: grid; gap: 14px; min-width: 0; align-content: start; }
+.map-panel { background: var(--panel); border-radius: 12px; padding: 20px 20px 16px; display: grid; gap: 14px; min-width: 0; align-content: start; }
 .map-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; }
 .map-head h2 { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; letter-spacing: .05em; margin: 0; }
 .map-head p { margin: 0; color: var(--muted); font-size: .85rem; max-width: 60ch; }
@@ -131,20 +126,20 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine market clocks · 39 in escrow · 707 closed · as of Oct 22, 2026</div>
+    <div class="sub" id="asof">Nine markets · 39 in escrow as of Oct 14, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
     <div class="map-head">
       <h2>Across the Country</h2>
-      <p>States are shaded by time zone, and zones in tour hours light up. <span style="color:var(--led);font-weight:700">Red columns</span> are deals in escrow, one step per deal. <span style="color:var(--col-closed-text);font-weight:700">Cream circles</span> are closed deals, bigger for more. Tags read state · escrow · closed. Drag to turn the map.</p>
+      <p>States are shaded by time zone. Zones in tour hours light up. Columns show deals in escrow in each market. Drag to turn the map.</p>
     </div>
     <div class="map-stage"><canvas id="map" role="img" aria-label="3D map of U.S. time zones with your nine markets marked"></canvas></div>
     <div class="legend" id="legend"></div>
   </aside>
   <footer>
-    In escrow counts come from the In Escrow group on the Kingdom Homes board, and closed counts from the Kingdom Homes CLOSED board in monday.com, grouped by the Market (State) column, pulled Oct 22, 2026. Escrow Purgatory deals are not counted.
-    Closed circles grow by area, so a state with four times the closings has a circle twice as wide. Tags show states with 10 or more deals.
+    Counts come from the In Escrow group on the Kingdom Homes board in monday.com, grouped by the Market (State) column, pulled Oct 14, 2026. Escrow Purgatory deals are not counted.
+    The top five states by escrow count are shown first, then Tennessee, Indiana and Missouri from the group tied at 2 (Florida and Alabama also have 2), plus Arizona.
     Tour hours are 9 AM to 6 PM local time. On the map each state takes its main time zone, so split states like Texas, Florida and Tennessee show one zone.
   </footer>
 </div>
@@ -152,42 +147,16 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <script>
 // Edit this list to swap markets. Order sets the wall order. pin = map position of the main city.
 const MARKETS = [
-  { id: "NC", name: "North Carolina", tz: "America/New_York", count: 4, closed: 47,  cities: "Charlotte 2 · Fayetteville · Greensboro" },
-  { id: "VA", name: "Virginia",       tz: "America/New_York", count: 3, closed: 14,  cities: "Norfolk 2 · Richmond" },
-  { id: "OH", name: "Ohio",           tz: "America/New_York", count: 7, closed: 60,  cities: "Cleveland 2 · Dayton 2 · Toledo 2 · Akron" },
-  { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 4, closed: 166, cities: "Oklahoma City 2 · Tulsa 2" },
-  { id: "SC", name: "South Carolina", tz: "America/New_York", count: 4, closed: 119, cities: "Columbia 3 · Spartanburg" },
-  { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 1, closed: 48,  cities: "Memphis" },
-  { id: "IN", name: "Indiana",        tz: "America/Indiana/Indianapolis", count: 4, closed: 113, cities: "Indianapolis 2 · South Bend 2" },
-  { id: "MO", name: "Missouri",       tz: "America/Chicago",  count: 1, closed: 18,  cities: "Kansas City" },
-  { id: "AZ", name: "Arizona",        tz: "America/Phoenix",  count: 0, closed: 7,   cities: "No deals in escrow right now" },
+  { id: "NC", name: "North Carolina", tz: "America/New_York", count: 6, cities: "Charlotte 3 · Fayetteville · Greensboro · Greenville", pin: [775.5, 362.5] },
+  { id: "VA", name: "Virginia",       tz: "America/New_York", count: 5, cities: "Norfolk 4 · Richmond", pin: [850, 311] },
+  { id: "OH", name: "Ohio",           tz: "America/New_York", count: 5, cities: "Cleveland 3 · Akron · Toledo", pin: [738.5, 223] },
+  { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 5, cities: "Oklahoma City 3 · Tulsa 2", pin: [470, 379] },
+  { id: "SC", name: "South Carolina", tz: "America/New_York", count: 3, cities: "Columbia 2 · Spartanburg", pin: [776.5, 390.5] },
+  { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 2, cities: "Memphis 2", pin: [607.5, 383] },
+  { id: "IN", name: "Indiana",        tz: "America/Indiana/Indianapolis", count: 2, cities: "Indianapolis · South Bend", pin: [667.5, 271.5] },
+  { id: "MO", name: "Missouri",       tz: "America/Chicago",  count: 2, cities: "Kansas City · St. Louis", pin: [523, 295.5] },
+  { id: "AZ", name: "Arizona",        tz: "America/Phoenix",  count: 0, cities: "No deals in escrow yet", pin: [197.5, 399.5] },
 ];
-// Every state with deals in escrow or closed, for the map. pin = map position of the main city.
-const ACTIVITY = [
-  { id: "OK", esc: 4, closed: 166, pin: [470, 379] },
-  { id: "SC", esc: 4, closed: 119, pin: [776.5, 390.5] },
-  { id: "IN", esc: 4, closed: 113, pin: [667.5, 271.5] },
-  { id: "OH", esc: 7, closed: 60,  pin: [738.5, 223] },
-  { id: "NC", esc: 4, closed: 47,  pin: [775.5, 362.5] },
-  { id: "TN", esc: 1, closed: 48,  pin: [607.5, 383] },
-  { id: "AL", esc: 5, closed: 14,  pin: [670.5, 415.5] },
-  { id: "MO", esc: 1, closed: 18,  pin: [523, 295.5] },
-  { id: "VA", esc: 3, closed: 14,  pin: [850, 311] },
-  { id: "GA", esc: 2, closed: 12,  pin: [715, 405] },
-  { id: "KY", esc: 0, closed: 13,  pin: [678.5, 305.5] },
-  { id: "FL", esc: 0, closed: 10,  pin: [789, 514.5] },
-  { id: "CA", esc: 2, closed: 5,   pin: [87, 363] },
-  { id: "AZ", esc: 0, closed: 7,   pin: [197.5, 399.5] },
-  { id: "AR", esc: 0, closed: 7,   pin: [566.5, 394] },
-  { id: "PA", esc: 1, closed: 5,   pin: [771, 242] },
-  { id: "TX", esc: 0, closed: 2,   pin: [483, 440.5] },
-  { id: "NE", esc: 1, closed: 0,   pin: [499, 246.5] },
-  { id: "NY", esc: 0, closed: 1,   pin: [823, 171.5] },
-  { id: "NJ", esc: 0, closed: 1,   pin: [867, 216] },
-  { id: "MS", esc: 0, closed: 1,   pin: [609, 448] },
-  { id: "MI", esc: 0, closed: 1,   pin: [713, 207.5] },
-];
-const SMALL_STATES = new Set(["CT", "DE", "MA", "MD", "NH", "NJ", "RI", "VT"]);
 const TOUR_START = 9, TOUR_END = 18;
 const ZONES = [
   { k: "P", name: "Pacific",  tz: "America/Los_Angeles", color: "--tz-p" },
@@ -226,9 +195,8 @@ const stations = MARKETS.map(mk => {
   plate.querySelector(".name").textContent = mk.name;
   const meta = document.createElement("div");
   meta.className = "meta";
-  meta.innerHTML = `<span class="pill"></span><span class="count"><b></b> in escrow</span><span class="closedct"></span><span class="cities"></span>`;
+  meta.innerHTML = `<span class="pill"></span><span class="count"><b></b> in escrow</span><span class="cities"></span>`;
   meta.querySelector(".count b").textContent = mk.count;
-  meta.querySelector(".closedct").textContent = `${mk.closed} closed`;
   meta.querySelector(".cities").textContent = mk.cities;
   st.append(clockBox, plate, meta);
   wall.appendChild(st);
@@ -278,7 +246,7 @@ const ctx = canvas.getContext("2d");
 const MAPW = 975, MAPH = 610, CX0 = 487.5, CY0 = 300;
 const TILT = 50 * Math.PI / 180, DIST = 1500, DEPTH = 12;
 // Arizona gets its own zone key so it can show Phoenix time (no daylight saving).
-const shapes = STATES.map(s => ({ id: s.id, c: s.c, z: s.id === "AZ" ? "Z" : s.z, rings: s.p.map(r => Float32Array.from(r)) }));
+const shapes = STATES.map(s => ({ id: s.id, z: s.id === "AZ" ? "Z" : s.z, rings: s.p.map(r => Float32Array.from(r)) }));
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let colors = {}, W = 0, H = 0, dpr = 1, scale = 1;
 let yaw = 0, yawTarget = 0, dragging = false, dragX = 0, dragYaw = 0, userYaw = null;
@@ -286,7 +254,7 @@ let yaw = 0, yawTarget = 0, dragging = false, dragX = 0, dragYaw = 0, userYaw = 
 function readColors() {
   const cs = getComputedStyle(document.documentElement);
   const g = n => cs.getPropertyValue(n).trim();
-  colors = { label: g("--map-label"), colClosed: g("--col-closed"), colClosedHi: g("--col-closed-hi"), side: g("--map-side"), edge: g("--map-edge"), dim: g("--map-dim"), ink: g("--ink"), muted: g("--muted"), led: g("--led"), glow: g("--led-glow"), panel: g("--panel"), bezel: g("--bezel") };
+  colors = { side: g("--map-side"), edge: g("--map-edge"), dim: g("--map-dim"), ink: g("--ink"), muted: g("--muted"), led: g("--led"), glow: g("--led-glow"), panel: g("--panel"), bezel: g("--bezel") };
   for (const z of ZONES) colors[z.k] = g(z.color);
 }
 function resize() {
@@ -354,90 +322,54 @@ function draw() {
   ctx.strokeStyle = colors.led;
   for (const s of shapes) if (marketIds.has(s.id)) for (const r of s.rings) { tracePath(r, DEPTH, cy, sy); ctx.stroke(); }
 
-  // state initials on every state
-  ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  const ifs = Math.max(7, Math.min(13, H * 0.021));
-  for (const s of shapes) {
-    if (s.id === "DC") continue;
-    const small = SMALL_STATES.has(s.id);
-    const [lx, ly] = project(s.c[0], s.c[1], DEPTH, cy, sy);
-    ctx.font = `700 ${small ? ifs * 0.75 : ifs}px "IBM Plex Sans", system-ui, sans-serif`;
-    ctx.fillStyle = colors.label;
-    ctx.fillText(s.id, lx, ly);
-  }
-
-  // closed deals: a cream disc on the map surface, area grows with the count
-  for (const a of ACTIVITY) {
-    if (!a.closed) continue;
-    const r = 2.4 * Math.sqrt(a.closed);
-    ctx.beginPath();
-    for (let k = 0; k <= 32; k++) {
-      const ang = k / 32 * Math.PI * 2;
-      const [px, py] = project(a.pin[0] + Math.cos(ang) * r, a.pin[1] + Math.sin(ang) * r, DEPTH + 0.5, cy, sy);
-      if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-    }
-    ctx.closePath();
-    ctx.globalAlpha = 0.5; ctx.fillStyle = colors.colClosed; ctx.fill();
-    ctx.globalAlpha = 1; ctx.lineWidth = 1.5; ctx.strokeStyle = colors.colClosedHi; ctx.stroke();
-  }
-
-  // escrow deals: red columns, height per deal, back to front
-  const unit = Math.max(9, H * 0.034);
-  const cols = ACTIVITY.map(a => {
-    const [bx, by, p] = project(a.pin[0], a.pin[1], DEPTH, cy, sy);
-    return { a, bx, by, p };
-  }).sort((u, v) => u.by - v.by);
-  const tops = new Map();
-  for (const c of cols) {
-    const w = Math.max(4, unit * 0.5) * c.p;
-    const h = c.a.esc ? (8 + unit * c.a.esc) * c.p : 0;
-    if (h) {
-      ctx.fillStyle = colors.glow;
-      ctx.beginPath(); ctx.ellipse(c.bx, c.by, w * 1.6, w * 0.6, 0, 0, Math.PI * 2); ctx.fill();
-      const g = ctx.createLinearGradient(c.bx - w / 2, 0, c.bx + w / 2, 0);
-      g.addColorStop(0, colors.led); g.addColorStop(0.5, "#ffb19f"); g.addColorStop(1, colors.led);
-      ctx.shadowColor = colors.glow; ctx.shadowBlur = 12;
-      ctx.fillStyle = g;
-      ctx.fillRect(c.bx - w / 2, c.by - h, w, h);
+  // columns, back to front
+  const pins = MARKETS.map((m, i) => {
+    const [bx, by, p] = project(m.pin[0], m.pin[1], DEPTH, cy, sy);
+    return { m, st: stations[i], bx, by, p };
+  }).sort((a, b) => a.by - b.by);
+  const unit = Math.max(10, H * 0.032);
+  for (const pin of pins) {
+    const hpx = (pin.m.count ? 10 + pin.m.count * unit : 0) * pin.p;
+    const w = Math.max(5, unit * 0.55) * pin.p;
+    const top = pin.by - hpx;
+    // base glow
+    ctx.fillStyle = colors.glow;
+    ctx.beginPath(); ctx.ellipse(pin.bx, pin.by, w * 1.6, w * 0.6, 0, 0, Math.PI * 2); ctx.fill();
+    if (hpx > 0) {
+      const cg = ctx.createLinearGradient(pin.bx - w / 2, 0, pin.bx + w / 2, 0);
+      cg.addColorStop(0, colors.led); cg.addColorStop(0.5, "#ffb19f"); cg.addColorStop(1, colors.led);
+      ctx.shadowColor = colors.glow; ctx.shadowBlur = 14;
+      ctx.fillStyle = cg;
+      ctx.fillRect(pin.bx - w / 2, top, w, hpx);
       ctx.shadowBlur = 0;
       ctx.fillStyle = "#ffd2c6";
-      ctx.beginPath(); ctx.ellipse(c.bx, c.by - h, w / 2, w * 0.2, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(pin.bx, top, w / 2, w * 0.2, 0, 0, Math.PI * 2); ctx.fill();
+    } else {
+      ctx.fillStyle = colors.led;
+      ctx.beginPath(); ctx.arc(pin.bx, pin.by, w * 0.45, 0, Math.PI * 2); ctx.fill();
     }
-    tops.set(c.a.id, { x: c.bx, y: c.by - Math.max(h, 6) });
-  }
-
-  // tags, biggest markets placed first, nudged up to avoid overlaps
-  const compact = W < 700;
-  const fs = Math.max(9, Math.min(14, H * 0.024));
-  const placed = [];
-  const tagged = ACTIVITY.filter(a => a.esc + a.closed >= (compact ? 40 : 10)).sort((u, v) => (v.esc + v.closed) - (u.esc + u.closed));
-  for (const a of tagged) {
-    const t = tops.get(a.id);
+    // label tag
+    const compact = W < 700;
+    const fs = Math.max(10, Math.min(15, H * 0.026));
+    const l1 = compact ? String(pin.m.count) : `${pin.m.id} · ${pin.m.count}`;
+    const l2 = compact ? "" : (pin.st.timeText || "");
     ctx.font = `700 ${fs}px "IBM Plex Mono", ui-monospace, monospace`;
-    const sE = String(a.esc), sC = String(a.closed);
-    const wId = ctx.measureText(a.id + " ").width, wE = ctx.measureText(sE).width, wSep = ctx.measureText(" · ").width, wC = ctx.measureText(sC).width;
-    const tw = wId + wE + wSep + wC + fs * 0.9, th = fs * 1.55;
-    let tx = t.x - tw / 2, ty = t.y - th - 5;
-    tx = Math.max(2, Math.min(W - tw - 2, tx));
-    const hit = (y) => placed.some(r => tx < r.x + r.w + 3 && tx + tw + 3 > r.x && y < r.y + r.h + 2 && y + th + 2 > r.y);
-    let guard = 0;
-    while (hit(ty) && guard++ < 30) ty -= th * 0.6;
-    placed.push({ x: tx, y: ty, w: tw, h: th });
-    if (ty + th < t.y - 8) {
-      ctx.strokeStyle = colors.muted; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(t.x, t.y - 2); ctx.lineTo(t.x, ty + th); ctx.stroke();
-    }
-    ctx.fillStyle = colors.bezel; ctx.globalAlpha = 0.92;
-    ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, 4); ctx.fill();
+    const tw = Math.max(ctx.measureText(l1).width, ctx.measureText(l2).width) + fs;
+    const th = compact ? fs * 1.4 : fs * 2.5;
+    const tx = pin.bx - tw / 2, ty = top - th - 6;
+    ctx.fillStyle = colors.bezel;
+    ctx.globalAlpha = 0.9;
+    ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, 5); ctx.fill();
     ctx.globalAlpha = 1;
-    ctx.textAlign = "left"; ctx.textBaseline = "middle";
-    let x = tx + fs * 0.45; const y = ty + th / 2;
-    ctx.fillStyle = "#e9e4d6"; ctx.fillText(a.id + " ", x, y); x += wId;
-    ctx.fillStyle = colors.led; ctx.fillText(sE, x, y); x += wE;
-    ctx.fillStyle = "#8f98a3"; ctx.fillText(" · ", x, y); x += wSep;
-    ctx.fillStyle = "#e9d9a8"; ctx.fillText(sC, x, y);
+    ctx.fillStyle = colors.led;
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(l1, pin.bx, ty + (compact ? th * 0.52 : th * 0.32));
+    ctx.font = `500 ${fs * 0.85}px "IBM Plex Mono", ui-monospace, monospace`;
+    ctx.fillStyle = "#e9e4d6";
+    ctx.fillText(l2, pin.bx, ty + th * 0.72);
   }
 }
+
 let t0 = performance.now();
 function frame(now) {
   if (userYaw === null) yawTarget = reduceMotion ? 0 : Math.sin((now - t0) / 9000) * 0.09;
