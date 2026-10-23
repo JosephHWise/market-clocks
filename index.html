@@ -25,6 +25,8 @@
   --map-side: #9aa3ad;
   --map-edge: rgba(255, 255, 255, .55);
   --map-dim: #c9ced4;
+  --map-initials: #11151b;
+  --map-initials-halo: rgba(255, 255, 255, .55);
   --tz-p: #4f8fbf;
   --tz-m: #7b6fb8;
   --tz-z: #a77fb8;
@@ -40,7 +42,7 @@
   :root:not([data-theme="light"]) {
     --wall: #161a20; --wall-edge: #252b33; --panel: #1b2027; --plate: #c9b98f; --plate-ink: #1d1a12;
     --bezel: #0b0d10; --ink: #e8eaee; --muted: #9aa3ae; --open: #5fbf86; --closed: #d4b25a;
-    --map-side: #0c0f13; --map-edge: rgba(0, 0, 0, .55); --map-dim: #2a3038;
+    --map-side: #0c0f13; --map-edge: rgba(0, 0, 0, .55); --map-dim: #2a3038; --map-initials: #ffffff; --map-initials-halo: rgba(0, 0, 0, .6);
     --tz-p: #4d93c9; --tz-m: #8576c9; --tz-z: #b286c7; --tz-c: #3fae95; --tz-e: #d6a646; --tz-a: #6f93ad; --tz-h: #d6826f;
     color-scheme: dark;
   }
@@ -48,7 +50,7 @@
 :root[data-theme="dark"] {
   --wall: #161a20; --wall-edge: #252b33; --panel: #1b2027; --plate: #c9b98f; --plate-ink: #1d1a12;
   --bezel: #0b0d10; --ink: #e8eaee; --muted: #9aa3ae; --open: #5fbf86; --closed: #d4b25a;
-  --map-side: #0c0f13; --map-edge: rgba(0, 0, 0, .55); --map-dim: #2a3038;
+  --map-side: #0c0f13; --map-edge: rgba(0, 0, 0, .55); --map-dim: #2a3038; --map-initials: #ffffff; --map-initials-halo: rgba(0, 0, 0, .6);
   --tz-p: #4d93c9; --tz-m: #8576c9; --tz-z: #b286c7; --tz-c: #3fae95; --tz-e: #d6a646; --tz-a: #6f93ad; --tz-h: #d6826f;
   color-scheme: dark;
 }
@@ -130,58 +132,66 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine markets · 39 in escrow as of Oct 14, 2026</div>
+    <div class="sub" id="asof">Nine market clocks · 37 in escrow as of Oct 23, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
     <div class="map-head">
       <h2>Across the Country</h2>
-      <p>States are shaded by time zone. Zones in tour hours light up. Columns show deals in escrow in each market, and dots mark the cities they're in. Scroll to zoom in where your cursor is, drag to move or turn, and double-click to reset.</p>
+      <p>States are shaded by time zone. Zones in tour hours light up. Every city with deals in escrow gets its own column, one step per deal. Scroll to zoom in where your cursor is, drag to move or turn, and double-click to reset.</p>
     </div>
     <div class="map-stage"><canvas id="map" role="img" aria-label="3D map of U.S. time zones with your nine markets marked"></canvas><button type="button" class="map-reset" id="map-reset" hidden>Reset view</button><span class="zoom-level" id="zoom-level" hidden></span></div>
     <div class="legend" id="legend"></div>
   </aside>
   <footer>
-    Counts come from the In Escrow group on the Kingdom Homes board in monday.com, grouped by the Market (State) column, pulled Oct 14, 2026. Escrow Purgatory deals are not counted.
-    The top five states by escrow count are shown first, then Tennessee, Indiana and Missouri from the group tied at 2 (Florida and Alabama also have 2), plus Arizona.
+    Counts come from the In Escrow group on the Kingdom Homes board in monday.com, pulled Oct 23, 2026. Clocks group deals by state; map columns go city by city, using the city in each property's address. Escrow Purgatory deals are not counted.
     Tour hours are 9 AM to 6 PM local time. On the map each state takes its main time zone, so split states like Texas, Florida and Tennessee show one zone.
   </footer>
 </div>
 
 <script>
-// Edit this list to swap markets. Order sets the wall order. pin = map position of the main city.
+// Edit this list to swap markets. Order sets the wall order.
 const MARKETS = [
-  { id: "NC", name: "North Carolina", tz: "America/New_York", count: 6, cities: "Charlotte 3 · Fayetteville · Greensboro · Greenville", pin: [775.5, 362.5] },
-  { id: "VA", name: "Virginia",       tz: "America/New_York", count: 5, cities: "Norfolk 4 · Richmond", pin: [850, 311] },
-  { id: "OH", name: "Ohio",           tz: "America/New_York", count: 5, cities: "Cleveland 3 · Akron · Toledo", pin: [738.5, 223] },
-  { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 5, cities: "Oklahoma City 3 · Tulsa 2", pin: [470, 379] },
-  { id: "SC", name: "South Carolina", tz: "America/New_York", count: 3, cities: "Columbia 2 · Spartanburg", pin: [776.5, 390.5] },
-  { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 2, cities: "Memphis 2", pin: [607.5, 383] },
-  { id: "IN", name: "Indiana",        tz: "America/Indiana/Indianapolis", count: 2, cities: "Indianapolis · South Bend", pin: [667.5, 271.5] },
-  { id: "MO", name: "Missouri",       tz: "America/Chicago",  count: 2, cities: "Kansas City · St. Louis", pin: [523, 295.5] },
-  { id: "AZ", name: "Arizona",        tz: "America/Phoenix",  count: 0, cities: "No deals in escrow yet", pin: [197.5, 399.5] },
+  { id: "NC", name: "North Carolina", tz: "America/New_York", count: 4, cities: "Charlotte 2 · Fayetteville · Greensboro" },
+  { id: "VA", name: "Virginia",       tz: "America/New_York", count: 2, cities: "Norfolk · North Chesterfield" },
+  { id: "OH", name: "Ohio",           tz: "America/New_York", count: 7, cities: "Cleveland 2 · Dayton 2 · Toledo 2 · Akron" },
+  { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 4, cities: "Tulsa 2 · Oklahoma City · El Reno" },
+  { id: "SC", name: "South Carolina", tz: "America/New_York", count: 4, cities: "Columbia 3 · Spartanburg" },
+  { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 0, cities: "No deals in escrow right now" },
+  { id: "IN", name: "Indiana",        tz: "America/Indiana/Indianapolis", count: 4, cities: "Indianapolis 2 · South Bend 2" },
+  { id: "MO", name: "Missouri",       tz: "America/Chicago",  count: 1, cities: "Kansas City" },
+  { id: "AZ", name: "Arizona",        tz: "America/Phoenix",  count: 0, cities: "No deals in escrow right now" },
 ];
-// Cities with deals in escrow, for the map. at = map position.
+// Every city with deals in escrow (In Escrow group, Oct 23, 2026). n = deals, at = map position.
 const CITIES = [
-  { st: "NC", name: "Charlotte", n: 3, at: [775.5,362.5] },
+  { st: "OH", name: "Cleveland", n: 2, at: [738.5,223] },
+  { st: "OH", name: "Dayton", n: 2, at: [701.5,268] },
+  { st: "OH", name: "Toledo", n: 2, at: [707,224] },
+  { st: "OH", name: "Akron", n: 1, at: [742.5,232] },
+  { st: "AL", name: "Birmingham", n: 2, at: [670.5,415.5] },
+  { st: "AL", name: "Huntsville", n: 2, at: [672,387.5] },
+  { st: "AL", name: "Montgomery", n: 1, at: [682.5,440.5] },
+  { st: "NC", name: "Charlotte", n: 2, at: [775.5,362.5] },
   { st: "NC", name: "Fayetteville", n: 1, at: [811.5,360.5] },
   { st: "NC", name: "Greensboro", n: 1, at: [791,340] },
-  { st: "NC", name: "Greenville", n: 1, at: [836.5,342.5] },
-  { st: "VA", name: "Norfolk", n: 4, at: [850,311] },
-  { st: "VA", name: "Richmond", n: 1, at: [826.5,299.5] },
-  { st: "OH", name: "Cleveland", n: 3, at: [738.5,223] },
-  { st: "OH", name: "Akron", n: 1, at: [742.5,232] },
-  { st: "OH", name: "Toledo", n: 1, at: [707,224] },
-  { st: "OK", name: "Oklahoma City", n: 3, at: [470,379] },
   { st: "OK", name: "Tulsa", n: 2, at: [498,363.5] },
-  { st: "SC", name: "Columbia", n: 2, at: [776.5,390.5] },
+  { st: "OK", name: "Oklahoma City", n: 1, at: [470,379] },
+  { st: "OK", name: "El Reno", n: 1, at: [462,377.5] },
+  { st: "SC", name: "Columbia", n: 3, at: [776.5,390.5] },
   { st: "SC", name: "Spartanburg", n: 1, at: [756.5,372] },
-  { st: "TN", name: "Memphis", n: 2, at: [607.5,383] },
-  { st: "IN", name: "Indianapolis", n: 1, at: [667.5,271.5] },
-  { st: "IN", name: "South Bend", n: 1, at: [661.5,228.5] },
+  { st: "IN", name: "Indianapolis", n: 2, at: [667.5,271.5] },
+  { st: "IN", name: "South Bend", n: 2, at: [661.5,228.5] },
+  { st: "VA", name: "Norfolk", n: 1, at: [850,311] },
+  { st: "VA", name: "North Chesterfield", n: 1, at: [826,302] },
+  { st: "GA", name: "Augusta", n: 1, at: [761,405.5] },
+  { st: "GA", name: "Covington", n: 1, at: [725,407.5] },
+  { st: "CA", name: "Forest Falls", n: 1, at: [111,368] },
+  { st: "CA", name: "Oceanside", n: 1, at: [98,386] },
+  { st: "PA", name: "Pittsburgh", n: 1, at: [771,242] },
   { st: "MO", name: "Kansas City", n: 1, at: [523,295.5] },
-  { st: "MO", name: "St. Louis", n: 1, at: [600,303.5] },
+  { st: "NE", name: "Omaha", n: 1, at: [499,246.5] },
 ];
+const SMALL_STATES = new Set(["CT", "DE", "MA", "MD", "NH", "NJ", "RI", "VT"]);
 const TOUR_START = 9, TOUR_END = 18;
 const ZONES = [
   { k: "P", name: "Pacific",  tz: "America/Los_Angeles", color: "--tz-p" },
@@ -271,7 +281,7 @@ const ctx = canvas.getContext("2d");
 const MAPW = 975, MAPH = 610, CX0 = 487.5, CY0 = 300;
 const TILT = 50 * Math.PI / 180, DIST = 1500, DEPTH = 12;
 // Arizona gets its own zone key so it can show Phoenix time (no daylight saving).
-const shapes = STATES.map(s => ({ id: s.id, z: s.id === "AZ" ? "Z" : s.z, rings: s.p.map(r => Float32Array.from(r)) }));
+const shapes = STATES.map(s => ({ id: s.id, c: s.c, z: s.id === "AZ" ? "Z" : s.z, rings: s.p.map(r => Float32Array.from(r)) }));
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let colors = {}, W = 0, H = 0, dpr = 1, scale = 1;
 let zoom = 1, panX = 0, panY = 0, panning = false, panStart = null;
@@ -281,7 +291,7 @@ let yaw = 0, yawTarget = 0, dragging = false, dragX = 0, dragYaw = 0, userYaw = 
 function readColors() {
   const cs = getComputedStyle(document.documentElement);
   const g = n => cs.getPropertyValue(n).trim();
-  colors = { side: g("--map-side"), edge: g("--map-edge"), dim: g("--map-dim"), ink: g("--ink"), muted: g("--muted"), led: g("--led"), glow: g("--led-glow"), panel: g("--panel"), bezel: g("--bezel") };
+  colors = { initials: g("--map-initials"), initialsHalo: g("--map-initials-halo"), side: g("--map-side"), edge: g("--map-edge"), dim: g("--map-dim"), ink: g("--ink"), muted: g("--muted"), led: g("--led"), glow: g("--led-glow"), panel: g("--panel"), bezel: g("--bezel") };
   for (const z of ZONES) colors[z.k] = g(z.color);
 }
 function resize() {
@@ -343,73 +353,54 @@ function draw() {
     for (const r of s.rings) { tracePath(r, DEPTH, cy, sy); ctx.fill(); }
   }
   ctx.globalAlpha = 1;
-  // market states get a bright outline
-  const marketIds = new Set(MARKETS.map(m => m.id));
+  // states with deals in escrow get a bright outline
+  const marketIds = new Set(CITIES.map(c => c.st));
   ctx.lineWidth = 2;
   ctx.strokeStyle = colors.led;
   for (const s of shapes) if (marketIds.has(s.id)) for (const r of s.rings) { tracePath(r, DEPTH, cy, sy); ctx.stroke(); }
 
-  // city dots on the map surface (labels are drawn after the columns)
+  // bold state initials on every state
+  ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
+  const ifs = Math.max(8, Math.min(16, H * 0.024)) * Math.min(1.8, Math.sqrt(zoom));
+  for (const s of shapes) {
+    if (s.id === "DC") continue;
+    const small = SMALL_STATES.has(s.id);
+    const [lx, ly] = project(s.c[0], s.c[1], DEPTH, cy, sy);
+    if (lx < -20 || lx > W + 20 || ly < -20 || ly > H + 20) continue;
+    ctx.font = `800 ${small ? ifs * 0.7 : ifs}px "IBM Plex Sans", system-ui, sans-serif`;
+    ctx.lineWidth = 3; ctx.strokeStyle = colors.initialsHalo; ctx.strokeText(s.id, lx, ly);
+    ctx.fillStyle = colors.initials; ctx.fillText(s.id, lx, ly);
+  }
+
+  // one column per city, one step per deal in escrow, back to front
   const cityPts = CITIES.map(c => {
     const [x, y, p] = project(c.at[0], c.at[1], DEPTH, cy, sy);
     return { c, x, y, p };
-  });
+  }).sort((u, v) => u.y - v.y);
+  const zs = Math.min(2, Math.sqrt(zoom));
+  const unit = Math.max(9, H * 0.036) * zs;
+  const tagBoxes = [];
   for (const cp of cityPts) {
-    const r = (2.2 + Math.sqrt(cp.c.n) * 1.3) * Math.min(2, Math.sqrt(zoom));
-    ctx.fillStyle = colors.bezel;
-    ctx.beginPath(); ctx.arc(cp.x, cp.y, r + 1.5, 0, Math.PI * 2); ctx.fill();
+    const w = Math.max(4, unit * 0.36) * cp.p;
+    const h = (6 + unit * cp.c.n) * cp.p;
+    ctx.fillStyle = colors.glow;
+    ctx.beginPath(); ctx.ellipse(cp.x, cp.y, w * 1.5, w * 0.55, 0, 0, Math.PI * 2); ctx.fill();
+    const g = ctx.createLinearGradient(cp.x - w / 2, 0, cp.x + w / 2, 0);
+    g.addColorStop(0, colors.led); g.addColorStop(0.5, "#ffb19f"); g.addColorStop(1, colors.led);
+    ctx.shadowColor = colors.glow; ctx.shadowBlur = 10;
+    ctx.fillStyle = g;
+    ctx.fillRect(cp.x - w / 2, cp.y - h, w, h);
+    ctx.shadowBlur = 0;
+    // a faint line between deals so each step reads as one deal
+    ctx.strokeStyle = "rgba(120, 20, 10, .45)"; ctx.lineWidth = 1;
+    for (let k = 1; k < cp.c.n; k++) {
+      const yk = cp.y - (6 + unit * k) * cp.p;
+      ctx.beginPath(); ctx.moveTo(cp.x - w / 2, yk); ctx.lineTo(cp.x + w / 2, yk); ctx.stroke();
+    }
     ctx.fillStyle = "#ffd2c6";
-    ctx.beginPath(); ctx.arc(cp.x, cp.y, r, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cp.x, cp.y - h, w / 2, w * 0.2, 0, 0, Math.PI * 2); ctx.fill();
   }
 
-  const tagBoxes = [];
-  // columns, back to front
-  const pins = MARKETS.map((m, i) => {
-    const [bx, by, p] = project(m.pin[0], m.pin[1], DEPTH, cy, sy);
-    return { m, st: stations[i], bx, by, p };
-  }).sort((a, b) => a.by - b.by);
-  const unit = Math.max(10, H * 0.032);
-  for (const pin of pins) {
-    const hpx = (pin.m.count ? 10 + pin.m.count * unit : 0) * pin.p;
-    const w = Math.max(5, unit * 0.55) * pin.p;
-    const top = pin.by - hpx;
-    // base glow
-    ctx.fillStyle = colors.glow;
-    ctx.beginPath(); ctx.ellipse(pin.bx, pin.by, w * 1.6, w * 0.6, 0, 0, Math.PI * 2); ctx.fill();
-    if (hpx > 0) {
-      const cg = ctx.createLinearGradient(pin.bx - w / 2, 0, pin.bx + w / 2, 0);
-      cg.addColorStop(0, colors.led); cg.addColorStop(0.5, "#ffb19f"); cg.addColorStop(1, colors.led);
-      ctx.shadowColor = colors.glow; ctx.shadowBlur = 14;
-      ctx.fillStyle = cg;
-      ctx.fillRect(pin.bx - w / 2, top, w, hpx);
-      ctx.shadowBlur = 0;
-      ctx.fillStyle = "#ffd2c6";
-      ctx.beginPath(); ctx.ellipse(pin.bx, top, w / 2, w * 0.2, 0, 0, Math.PI * 2); ctx.fill();
-    } else {
-      ctx.fillStyle = colors.led;
-      ctx.beginPath(); ctx.arc(pin.bx, pin.by, w * 0.45, 0, Math.PI * 2); ctx.fill();
-    }
-    // label tag
-    const compact = W < 700;
-    const fs = Math.max(10, Math.min(15, H * 0.026));
-    const l1 = compact ? String(pin.m.count) : `${pin.m.id} · ${pin.m.count}`;
-    const l2 = compact ? "" : (pin.st.timeText || "");
-    ctx.font = `700 ${fs}px "IBM Plex Mono", ui-monospace, monospace`;
-    const tw = Math.max(ctx.measureText(l1).width, ctx.measureText(l2).width) + fs;
-    const th = compact ? fs * 1.4 : fs * 2.5;
-    const tx = pin.bx - tw / 2, ty = top - th - 6;
-    ctx.fillStyle = colors.bezel;
-    ctx.globalAlpha = 0.9;
-    ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, 5); ctx.fill();
-    tagBoxes.push({ x: tx, y: ty, w: tw, h: th });
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = colors.led;
-    ctx.textAlign = "center"; ctx.textBaseline = "middle";
-    ctx.fillText(l1, pin.bx, ty + (compact ? th * 0.52 : th * 0.32));
-    ctx.font = `500 ${fs * 0.85}px "IBM Plex Mono", ui-monospace, monospace`;
-    ctx.fillStyle = "#e9e4d6";
-    ctx.fillText(l2, pin.bx, ty + th * 0.72);
-  }
   // city names: drawn last, skipping any that would overlap a label already placed
   const cfs = Math.max(9, H * 0.017) * Math.min(1.6, Math.sqrt(zoom));
   ctx.font = `600 ${cfs}px "IBM Plex Sans", system-ui, sans-serif`;
@@ -420,7 +411,7 @@ function draw() {
   for (const cp of [...cityPts].sort((u, v) => v.c.n - u.c.n)) {
     const text = cp.c.n > 1 ? `${cp.c.name} ${cp.c.n}` : cp.c.name;
     const tw = ctx.measureText(text).width;
-    const gap = 7 * Math.min(2, Math.sqrt(zoom));
+    const gap = 9 * Math.min(2, Math.sqrt(zoom));
     // try right of the dot, then left, then above, then below
     const spots = [[cp.x + gap, cp.y], [cp.x - gap - tw, cp.y], [cp.x - tw / 2, cp.y - cfs * 1.1], [cp.x - tw / 2, cp.y + cfs * 1.1]];
     let tx = null, ty = null, box = null;
