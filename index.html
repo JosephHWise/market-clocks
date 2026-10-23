@@ -138,7 +138,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
   <aside class="map-panel" aria-label="U.S. time zone map">
     <div class="map-head">
       <h2>Across the Country</h2>
-      <p>States are shaded by time zone. Zones in tour hours light up. Every city with deals in escrow gets its own column, one step per deal. Scroll to zoom in where your cursor is, drag to move or turn, and double-click to reset.</p>
+      <p>States are shaded by time zone. Zones in tour hours light up. Every city with deals in escrow gets its own column, one step per deal, topped with its deal count. Zoom in to see each city's local time. Scroll to zoom in where your cursor is, drag to move or turn, and double-click to reset.</p>
     </div>
     <div class="map-stage"><canvas id="map" role="img" aria-label="3D map of U.S. time zones with your nine markets marked"></canvas><button type="button" class="map-reset" id="map-reset" hidden>Reset view</button><span class="zoom-level" id="zoom-level" hidden></span></div>
     <div class="legend" id="legend"></div>
@@ -282,6 +282,8 @@ const MAPW = 975, MAPH = 610, CX0 = 487.5, CY0 = 300;
 const TILT = 50 * Math.PI / 180, DIST = 1500, DEPTH = 12;
 // Arizona gets its own zone key so it can show Phoenix time (no daylight saving).
 const shapes = STATES.map(s => ({ id: s.id, c: s.c, z: s.id === "AZ" ? "Z" : s.z, rings: s.p.map(r => Float32Array.from(r)) }));
+const stateZone = Object.fromEntries(shapes.map(s => [s.id, s.z]));
+const ZONE_TZ = Object.fromEntries(ZONES.map(z => [z.k, z.tz]));
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let colors = {}, W = 0, H = 0, dpr = 1, scale = 1;
 let zoom = 1, panX = 0, panY = 0, panning = false, panStart = null;
@@ -399,6 +401,43 @@ function draw() {
     }
     ctx.fillStyle = "#ffd2c6";
     ctx.beginPath(); ctx.ellipse(cp.x, cp.y - h, w / 2, w * 0.2, 0, 0, Math.PI * 2); ctx.fill();
+    cp.top = cp.y - h;
+  }
+
+  // a tag on top of every column: deals in escrow, plus the city's local time once zoomed in
+  const showTime = zoom >= 1.6;
+  const tfs = Math.max(9, H * 0.016) * Math.min(1.7, Math.sqrt(zoom));
+  const now = new Date(), timeCache = {};
+  const cityTime = st => {
+    const tz = ZONE_TZ[stateZone[st]] || "America/New_York";
+    if (!timeCache[tz]) {
+      const t = localParts(tz, now);
+      const h12 = t.h % 12 || 12;
+      timeCache[tz] = { text: `${h12}:${String(t.m).padStart(2, "0")} ${t.h < 12 ? "AM" : "PM"}`, open: t.h >= TOUR_START && t.h < TOUR_END };
+    }
+    return timeCache[tz];
+  };
+  ctx.textBaseline = "middle"; ctx.textAlign = "left";
+  for (const cp of cityPts) {
+    const count = String(cp.c.n);
+    const t = cityTime(cp.c.st);
+    ctx.font = `800 ${tfs}px "IBM Plex Sans", system-ui, sans-serif`;
+    const cw = ctx.measureText(count).width;
+    ctx.font = `600 ${tfs * 0.85}px "IBM Plex Mono", ui-monospace, monospace`;
+    const timeW = showTime ? ctx.measureText(t.text).width : 0;
+    const padX = tfs * 0.45, sep = showTime ? tfs * 0.45 : 0;
+    const bw = cw + sep + timeW + padX * 2, bh = tfs * 1.45;
+    const bx = cp.x - bw / 2, by = cp.top - bh - 4;
+    ctx.fillStyle = colors.bezel; ctx.strokeStyle = colors.led; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, bh * 0.3); ctx.fill(); ctx.stroke();
+    ctx.font = `800 ${tfs}px "IBM Plex Sans", system-ui, sans-serif`;
+    ctx.fillStyle = "#ff8a73"; ctx.fillText(count, bx + padX, by + bh / 2 + 0.5);
+    if (showTime) {
+      ctx.font = `600 ${tfs * 0.85}px "IBM Plex Mono", ui-monospace, monospace`;
+      ctx.fillStyle = t.open ? "#f2ece0" : "rgba(242,236,224,.55)";
+      ctx.fillText(t.text, bx + padX + cw + sep, by + bh / 2 + 0.5);
+    }
+    tagBoxes.push({ x: bx, y: by, w: bw, h: bh });
   }
 
   // city names: drawn last, skipping any that would overlap a label already placed
@@ -409,7 +448,7 @@ function draw() {
   const placedC = [...tagBoxes];
   const overlaps = box => placedC.some(b => box.x < b.x + b.w && box.x + box.w > b.x && box.y < b.y + b.h && box.y + box.h > b.y);
   for (const cp of [...cityPts].sort((u, v) => v.c.n - u.c.n)) {
-    const text = cp.c.n > 1 ? `${cp.c.name} ${cp.c.n}` : cp.c.name;
+    const text = cp.c.name;
     const tw = ctx.measureText(text).width;
     const gap = 9 * Math.min(2, Math.sqrt(zoom));
     // try right of the dot, then left, then above, then below
