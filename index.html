@@ -136,7 +136,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
   <aside class="map-panel" aria-label="U.S. time zone map">
     <div class="map-head">
       <h2>Across the Country</h2>
-      <p>States are shaded by time zone. Zones in tour hours light up. Columns show deals in escrow in each market. Scroll to zoom in where your cursor is, drag to move or turn, and double-click to reset.</p>
+      <p>States are shaded by time zone. Zones in tour hours light up. Columns show deals in escrow in each market, and dots mark the cities they're in. Scroll to zoom in where your cursor is, drag to move or turn, and double-click to reset.</p>
     </div>
     <div class="map-stage"><canvas id="map" role="img" aria-label="3D map of U.S. time zones with your nine markets marked"></canvas><button type="button" class="map-reset" id="map-reset" hidden>Reset view</button><span class="zoom-level" id="zoom-level" hidden></span></div>
     <div class="legend" id="legend"></div>
@@ -160,6 +160,27 @@ const MARKETS = [
   { id: "IN", name: "Indiana",        tz: "America/Indiana/Indianapolis", count: 2, cities: "Indianapolis · South Bend", pin: [667.5, 271.5] },
   { id: "MO", name: "Missouri",       tz: "America/Chicago",  count: 2, cities: "Kansas City · St. Louis", pin: [523, 295.5] },
   { id: "AZ", name: "Arizona",        tz: "America/Phoenix",  count: 0, cities: "No deals in escrow yet", pin: [197.5, 399.5] },
+];
+// Cities with deals in escrow, for the map. at = map position.
+const CITIES = [
+  { st: "NC", name: "Charlotte", n: 3, at: [775.5,362.5] },
+  { st: "NC", name: "Fayetteville", n: 1, at: [811.5,360.5] },
+  { st: "NC", name: "Greensboro", n: 1, at: [791,340] },
+  { st: "NC", name: "Greenville", n: 1, at: [836.5,342.5] },
+  { st: "VA", name: "Norfolk", n: 4, at: [850,311] },
+  { st: "VA", name: "Richmond", n: 1, at: [826.5,299.5] },
+  { st: "OH", name: "Cleveland", n: 3, at: [738.5,223] },
+  { st: "OH", name: "Akron", n: 1, at: [742.5,232] },
+  { st: "OH", name: "Toledo", n: 1, at: [707,224] },
+  { st: "OK", name: "Oklahoma City", n: 3, at: [470,379] },
+  { st: "OK", name: "Tulsa", n: 2, at: [498,363.5] },
+  { st: "SC", name: "Columbia", n: 2, at: [776.5,390.5] },
+  { st: "SC", name: "Spartanburg", n: 1, at: [756.5,372] },
+  { st: "TN", name: "Memphis", n: 2, at: [607.5,383] },
+  { st: "IN", name: "Indianapolis", n: 1, at: [667.5,271.5] },
+  { st: "IN", name: "South Bend", n: 1, at: [661.5,228.5] },
+  { st: "MO", name: "Kansas City", n: 1, at: [523,295.5] },
+  { st: "MO", name: "St. Louis", n: 1, at: [600,303.5] },
 ];
 const TOUR_START = 9, TOUR_END = 18;
 const ZONES = [
@@ -328,6 +349,20 @@ function draw() {
   ctx.strokeStyle = colors.led;
   for (const s of shapes) if (marketIds.has(s.id)) for (const r of s.rings) { tracePath(r, DEPTH, cy, sy); ctx.stroke(); }
 
+  // city dots on the map surface (labels are drawn after the columns)
+  const cityPts = CITIES.map(c => {
+    const [x, y, p] = project(c.at[0], c.at[1], DEPTH, cy, sy);
+    return { c, x, y, p };
+  });
+  for (const cp of cityPts) {
+    const r = (2.2 + Math.sqrt(cp.c.n) * 1.3) * Math.min(2, Math.sqrt(zoom));
+    ctx.fillStyle = colors.bezel;
+    ctx.beginPath(); ctx.arc(cp.x, cp.y, r + 1.5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#ffd2c6";
+    ctx.beginPath(); ctx.arc(cp.x, cp.y, r, 0, Math.PI * 2); ctx.fill();
+  }
+
+  const tagBoxes = [];
   // columns, back to front
   const pins = MARKETS.map((m, i) => {
     const [bx, by, p] = project(m.pin[0], m.pin[1], DEPTH, cy, sy);
@@ -366,6 +401,7 @@ function draw() {
     ctx.fillStyle = colors.bezel;
     ctx.globalAlpha = 0.9;
     ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, 5); ctx.fill();
+    tagBoxes.push({ x: tx, y: ty, w: tw, h: th });
     ctx.globalAlpha = 1;
     ctx.fillStyle = colors.led;
     ctx.textAlign = "center"; ctx.textBaseline = "middle";
@@ -374,7 +410,32 @@ function draw() {
     ctx.fillStyle = "#e9e4d6";
     ctx.fillText(l2, pin.bx, ty + th * 0.72);
   }
+  // city names: drawn last, skipping any that would overlap a label already placed
+  const cfs = Math.max(9, H * 0.017) * Math.min(1.6, Math.sqrt(zoom));
+  ctx.font = `600 ${cfs}px "IBM Plex Sans", system-ui, sans-serif`;
+  ctx.textAlign = "left"; ctx.textBaseline = "middle";
+  ctx.lineJoin = "round";
+  const placedC = [...tagBoxes];
+  const overlaps = box => placedC.some(b => box.x < b.x + b.w && box.x + box.w > b.x && box.y < b.y + b.h && box.y + box.h > b.y);
+  for (const cp of [...cityPts].sort((u, v) => v.c.n - u.c.n)) {
+    const text = cp.c.n > 1 ? `${cp.c.name} ${cp.c.n}` : cp.c.name;
+    const tw = ctx.measureText(text).width;
+    const gap = 7 * Math.min(2, Math.sqrt(zoom));
+    // try right of the dot, then left, then above, then below
+    const spots = [[cp.x + gap, cp.y], [cp.x - gap - tw, cp.y], [cp.x - tw / 2, cp.y - cfs * 1.1], [cp.x - tw / 2, cp.y + cfs * 1.1]];
+    let tx = null, ty = null, box = null;
+    for (const [sx, sy2] of spots) {
+      const b = { x: sx - 2, y: sy2 - cfs * 0.6, w: tw + 4, h: cfs * 1.2 };
+      if (b.x + b.w < 0 || b.x > W || b.y + b.h < 0 || b.y > H) continue;
+      if (!overlaps(b)) { tx = sx; ty = sy2; box = b; break; }
+    }
+    if (!box) continue;
+    placedC.push(box);
+    ctx.lineWidth = 3.5; ctx.strokeStyle = colors.bezel; ctx.strokeText(text, tx, ty);
+    ctx.fillStyle = "#f2ece0"; ctx.fillText(text, tx, ty);
+  }
 }
+
 
 let t0 = performance.now();
 function frame(now) {
