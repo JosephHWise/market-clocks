@@ -132,19 +132,19 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine market clocks · 37 in escrow as of Oct 23, 2026</div>
+    <div class="sub" id="asof">Nine market clocks · 37 in escrow · 8 blasted out as of Oct 23, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
     <div class="map-head">
       <h2>Across the Country</h2>
-      <p>States are shaded by time zone. Zones in tour hours light up. Every city with deals in escrow gets its own column, one step per deal, topped with its deal count. Zoom in to see each city's local time. Scroll to zoom in where your cursor is, drag to move or turn, and double-click to reset.</p>
+      <p>States are shaded by time zone. Zones in tour hours light up. Every city gets its own column, one step per property, topped with its count: red for deals in escrow, cream for properties blasted out. Zoom in to see each city's local time. Scroll to zoom in where your cursor is, drag to move or turn, and double-click to reset.</p>
     </div>
     <div class="map-stage"><canvas id="map" role="img" aria-label="3D map of U.S. time zones with your nine markets marked"></canvas><button type="button" class="map-reset" id="map-reset" hidden>Reset view</button><span class="zoom-level" id="zoom-level" hidden></span></div>
     <div class="legend" id="legend"></div>
   </aside>
   <footer>
-    Counts come from the In Escrow group on the Kingdom Homes board in monday.com, pulled Oct 23, 2026. Clocks group deals by state; map columns go city by city, using the city in each property's address. Escrow Purgatory deals are not counted.
+    Counts come from the In Escrow group on the Kingdom Homes board in monday.com, pulled Oct 23, 2026. Clocks group deals by state; map columns go city by city, using the city in each property's address. Escrow Purgatory deals are not counted. Cream map columns are the properties in the Dispo Live Properties group (blasted out to buyers).
     Tour hours are 9 AM to 6 PM local time. On the map each state takes its main time zone, so split states like Texas, Florida and Tennessee show one zone.
   </footer>
 </div>
@@ -190,6 +190,16 @@ const CITIES = [
   { st: "PA", name: "Pittsburgh", n: 1, at: [771,242] },
   { st: "MO", name: "Kansas City", n: 1, at: [523,295.5] },
   { st: "NE", name: "Omaha", n: 1, at: [499,246.5] },
+];
+// properties blasted out to buyers (Dispo - Live Properties), pulled Oct 23, 2026
+const BLASTED = [
+  { st: "CA", name: "Simi Valley", n: 1, at: [78.5,356] },
+  { st: "TN", name: "Memphis", n: 1, at: [607.5,383] },
+  { st: "MO", name: "Kansas City", n: 1, at: [523,295.5] },
+  { st: "IN", name: "Fort Wayne", n: 1, at: [682,240] },
+  { st: "WA", name: "Seattle", n: 1, at: [97.5,46] },
+  { st: "AL", name: "Mobile", n: 2, at: [653,481.5] },
+  { st: "IA", name: "Des Moines", n: 1, at: [538.5,238.5] },
 ];
 const SMALL_STATES = new Set(["CT", "DE", "MA", "MD", "NH", "NJ", "RI", "VT"]);
 const TOUR_START = 9, TOUR_END = 18;
@@ -375,9 +385,12 @@ function draw() {
   }
 
   // one column per city, one step per deal in escrow, back to front
-  const cityPts = CITIES.map(c => {
-    const [x, y, p] = project(c.at[0], c.at[1], DEPTH, cy, sy);
-    return { c, x, y, p };
+  // red columns are deals in escrow, cream columns are properties blasted out
+  const escrowKeys = new Set(CITIES.map(c => c.st + c.name));
+  const cityPts = [...CITIES.map(c => ({ c, kind: "e" })), ...BLASTED.map(c => ({ c, kind: "b" }))].map(o => {
+    const dup = o.kind === "b" && escrowKeys.has(o.c.st + o.c.name);
+    const [x, y, p] = project(o.c.at[0] + (dup ? 9 : 0), o.c.at[1], DEPTH, cy, sy);
+    return { c: o.c, kind: o.kind, dup, x, y, p };
   }).sort((u, v) => u.y - v.y);
   const zs = Math.min(2, Math.sqrt(zoom));
   const unit = Math.max(9, H * 0.036) * zs;
@@ -385,21 +398,23 @@ function draw() {
   for (const cp of cityPts) {
     const w = Math.max(4, unit * 0.36) * cp.p;
     const h = (6 + unit * cp.c.n) * cp.p;
-    ctx.fillStyle = colors.glow;
+    const blast = cp.kind === "b";
+    ctx.fillStyle = blast ? "rgba(255, 238, 200, .35)" : colors.glow;
     ctx.beginPath(); ctx.ellipse(cp.x, cp.y, w * 1.5, w * 0.55, 0, 0, Math.PI * 2); ctx.fill();
     const g = ctx.createLinearGradient(cp.x - w / 2, 0, cp.x + w / 2, 0);
-    g.addColorStop(0, colors.led); g.addColorStop(0.5, "#ffb19f"); g.addColorStop(1, colors.led);
+    const edgeC = blast ? "#d9c58f" : colors.led;
+    g.addColorStop(0, edgeC); g.addColorStop(0.5, blast ? "#fffaf0" : "#ffb19f"); g.addColorStop(1, edgeC);
     ctx.shadowColor = colors.glow; ctx.shadowBlur = 10;
     ctx.fillStyle = g;
     ctx.fillRect(cp.x - w / 2, cp.y - h, w, h);
     ctx.shadowBlur = 0;
     // a faint line between deals so each step reads as one deal
-    ctx.strokeStyle = "rgba(120, 20, 10, .45)"; ctx.lineWidth = 1;
+    ctx.strokeStyle = blast ? "rgba(90, 70, 30, .45)" : "rgba(120, 20, 10, .45)"; ctx.lineWidth = 1;
     for (let k = 1; k < cp.c.n; k++) {
       const yk = cp.y - (6 + unit * k) * cp.p;
       ctx.beginPath(); ctx.moveTo(cp.x - w / 2, yk); ctx.lineTo(cp.x + w / 2, yk); ctx.stroke();
     }
-    ctx.fillStyle = "#ffd2c6";
+    ctx.fillStyle = blast ? "#ffffff" : "#ffd2c6";
     ctx.beginPath(); ctx.ellipse(cp.x, cp.y - h, w / 2, w * 0.2, 0, 0, Math.PI * 2); ctx.fill();
     cp.top = cp.y - h;
   }
@@ -428,10 +443,10 @@ function draw() {
     const padX = tfs * 0.45, sep = showTime ? tfs * 0.45 : 0;
     const bw = cw + sep + timeW + padX * 2, bh = tfs * 1.45;
     const bx = cp.x - bw / 2, by = cp.top - bh - 4;
-    ctx.fillStyle = colors.bezel; ctx.strokeStyle = colors.led; ctx.lineWidth = 1.5;
+    ctx.fillStyle = colors.bezel; ctx.strokeStyle = cp.kind === "b" ? "#e8d6a4" : colors.led; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, bh * 0.3); ctx.fill(); ctx.stroke();
     ctx.font = `800 ${tfs}px "IBM Plex Sans", system-ui, sans-serif`;
-    ctx.fillStyle = "#ff8a73"; ctx.fillText(count, bx + padX, by + bh / 2 + 0.5);
+    ctx.fillStyle = cp.kind === "b" ? "#f3e4b8" : "#ff8a73"; ctx.fillText(count, bx + padX, by + bh / 2 + 0.5);
     if (showTime) {
       ctx.font = `600 ${tfs * 0.85}px "IBM Plex Mono", ui-monospace, monospace`;
       ctx.fillStyle = t.open ? "#f2ece0" : "rgba(242,236,224,.55)";
@@ -448,6 +463,7 @@ function draw() {
   const placedC = [...tagBoxes];
   const overlaps = box => placedC.some(b => box.x < b.x + b.w && box.x + box.w > b.x && box.y < b.y + b.h && box.y + box.h > b.y);
   for (const cp of [...cityPts].sort((u, v) => v.c.n - u.c.n)) {
+    if (cp.dup) continue;
     const text = cp.c.name;
     const tw = ctx.measureText(text).width;
     const gap = 9 * Math.min(2, Math.sqrt(zoom));
