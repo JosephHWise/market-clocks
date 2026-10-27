@@ -1,0 +1,217 @@
+{
+  "asof": "2026-10-27",
+  "escrow": [
+    {
+      "st": "OH",
+      "city": "Cleveland",
+      "n": 3,
+      "lon": -81.69,
+      "lat": 41.5
+    },
+    {
+      "st": "OH",
+      "city": "Toledo",
+      "n": 2,
+      "lon": -83.54,
+      "lat": 41.65
+    },
+    {
+      "st": "OH",
+      "city": "Dayton",
+      "n": 2,
+      "lon": -84.19,
+      "lat": 39.76
+    },
+    {
+      "st": "AL",
+      "city": "Birmingham",
+      "n": 2,
+      "lon": -86.8,
+      "lat": 33.52
+    },
+    {
+      "st": "AL",
+      "city": "Huntsville",
+      "n": 1,
+      "lon": -86.59,
+      "lat": 34.73
+    },
+    {
+      "st": "AL",
+      "city": "Montgomery",
+      "n": 1,
+      "lon": -86.3,
+      "lat": 32.37
+    },
+    {
+      "st": "NC",
+      "city": "Charlotte",
+      "n": 1,
+      "lon": -80.84,
+      "lat": 35.23
+    },
+    {
+      "st": "NC",
+      "city": "Fayetteville",
+      "n": 1,
+      "lon": -78.88,
+      "lat": 35.05
+    },
+    {
+      "st": "NC",
+      "city": "Greensboro",
+      "n": 1,
+      "lon": -79.79,
+      "lat": 36.07
+    },
+    {
+      "st": "OK",
+      "city": "Tulsa",
+      "n": 1,
+      "lon": -95.99,
+      "lat": 36.15
+    },
+    {
+      "st": "OK",
+      "city": "Oklahoma City",
+      "n": 1,
+      "lon": -97.52,
+      "lat": 35.47
+    },
+    {
+      "st": "SC",
+      "city": "Columbia",
+      "n": 2,
+      "lon": -81.03,
+      "lat": 34.0
+    },
+    {
+      "st": "SC",
+      "city": "Spartanburg",
+      "n": 1,
+      "lon": -81.93,
+      "lat": 34.95
+    },
+    {
+      "st": "SC",
+      "city": "Greenville",
+      "n": 1,
+      "lon": -82.39,
+      "lat": 34.85
+    },
+    {
+      "st": "IN",
+      "city": "Indianapolis",
+      "n": 2,
+      "lon": -86.16,
+      "lat": 39.77
+    },
+    {
+      "st": "IN",
+      "city": "South Bend",
+      "n": 1,
+      "lon": -86.25,
+      "lat": 41.68
+    },
+    {
+      "st": "VA",
+      "city": "North Chesterfield",
+      "n": 1,
+      "lon": -77.51,
+      "lat": 37.44
+    },
+    {
+      "st": "GA",
+      "city": "Covington",
+      "n": 1,
+      "lon": -83.86,
+      "lat": 33.6
+    },
+    {
+      "st": "CA",
+      "city": "Forest Falls",
+      "n": 1,
+      "lon": -116.92,
+      "lat": 34.09
+    },
+    {
+      "st": "CA",
+      "city": "Oceanside",
+      "n": 1,
+      "lon": -117.38,
+      "lat": 33.2
+    },
+    {
+      "st": "PA",
+      "city": "Pittsburgh",
+      "n": 1,
+      "lon": -79.99,
+      "lat": 40.44
+    },
+    {
+      "st": "MO",
+      "city": "Kansas City",
+      "n": 1,
+      "lon": -94.58,
+      "lat": 39.1
+    },
+    {
+      "st": "NE",
+      "city": "Omaha",
+      "n": 1,
+      "lon": -95.94,
+      "lat": 41.26
+    }
+  ],
+  "blasted": [
+    {
+      "st": "PA",
+      "city": "Pittsburgh",
+      "n": 2,
+      "lon": -79.99,
+      "lat": 40.44
+    },
+    {
+      "st": "TN",
+      "city": "Memphis",
+      "n": 1,
+      "lon": -90.05,
+      "lat": 35.15
+    },
+    {
+      "st": "MO",
+      "city": "Kansas City",
+      "n": 1,
+      "lon": -94.58,
+      "lat": 39.1
+    },
+    {
+      "st": "IA",
+      "city": "Des Moines",
+      "n": 1,
+      "lon": -93.61,
+      "lat": 41.59
+    },
+    {
+      "st": "AL",
+      "city": "Mobile",
+      "n": 1,
+      "lon": -88.04,
+      "lat": 30.69
+    },
+    {
+      "st": "OK",
+      "city": "Oklahoma City",
+      "n": 1,
+      "lon": -97.52,
+      "lat": 35.47
+    },
+    {
+      "st": "OH",
+      "city": "Cincinnati",
+      "n": 1,
+      "lon": -84.51,
+      "lat": 39.1
+    }
+  ]
+}
