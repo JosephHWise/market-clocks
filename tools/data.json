@@ -4,9 +4,16 @@
     {
       "st": "OH",
       "city": "Cleveland",
-      "n": 3,
+      "n": 2,
       "lon": -81.69,
       "lat": 41.5
+    },
+    {
+      "st": "OH",
+      "city": "Dayton",
+      "n": 2,
+      "lon": -84.19,
+      "lat": 39.76
     },
     {
       "st": "OH",
@@ -17,10 +24,10 @@
     },
     {
       "st": "OH",
-      "city": "Dayton",
-      "n": 2,
-      "lon": -84.19,
-      "lat": 39.76
+      "city": "Cincinnati",
+      "n": 1,
+      "lon": -84.51,
+      "lat": 39.1
     },
     {
       "st": "AL",
@@ -114,13 +121,6 @@
       "lat": 41.68
     },
     {
-      "st": "VA",
-      "city": "North Chesterfield",
-      "n": 1,
-      "lon": -77.51,
-      "lat": 37.44
-    },
-    {
       "st": "GA",
       "city": "Covington",
       "n": 1,
@@ -165,13 +165,6 @@
   ],
   "blasted": [
     {
-      "st": "PA",
-      "city": "Pittsburgh",
-      "n": 1,
-      "lon": -79.99,
-      "lat": 40.44
-    },
-    {
       "st": "TN",
       "city": "Memphis",
       "n": 1,
@@ -179,32 +172,11 @@
       "lat": 35.15
     },
     {
-      "st": "MO",
-      "city": "Kansas City",
-      "n": 1,
-      "lon": -94.58,
-      "lat": 39.1
-    },
-    {
       "st": "IA",
       "city": "Des Moines",
       "n": 1,
       "lon": -93.61,
       "lat": 41.59
-    },
-    {
-      "st": "AL",
-      "city": "Mobile",
-      "n": 1,
-      "lon": -88.04,
-      "lat": 30.69
-    },
-    {
-      "st": "OK",
-      "city": "Oklahoma City",
-      "n": 1,
-      "lon": -97.52,
-      "lat": 35.47
     },
     {
       "st": "TN",
