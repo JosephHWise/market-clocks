@@ -1,5 +1,5 @@
 {
-  "asof": "2026-10-27",
+  "asof": "2026-10-28",
   "escrow": [
     {
       "st": "OH",
@@ -212,6 +212,27 @@
       "n": 1,
       "lon": -84.51,
       "lat": 39.1
+    },
+    {
+      "st": "TN",
+      "city": "Lupton City",
+      "n": 1,
+      "lon": -85.27,
+      "lat": 35.11
+    },
+    {
+      "st": "GA",
+      "city": "Warner Robins",
+      "n": 1,
+      "lon": -83.6,
+      "lat": 32.61
+    },
+    {
+      "st": "VA",
+      "city": "Newport News",
+      "n": 1,
+      "lon": -76.49,
+      "lat": 37.09
     }
   ]
 }
