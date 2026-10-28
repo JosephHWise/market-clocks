@@ -132,7 +132,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine market clocks · 30 in escrow · 11 blasted out as of Oct 28, 2026</div>
+    <div class="sub" id="asof">Nine market clocks · 29 in escrow · 10 blasted out as of Oct 28, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
@@ -154,7 +154,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 const MARKETS = [
   { id: "NC", name: "North Carolina", tz: "America/New_York", count: 3, cities: "Charlotte · Fayetteville · Greensboro" },
   { id: "VA", name: "Virginia",       tz: "America/New_York", count: 1, cities: "North Chesterfield" },
-  { id: "OH", name: "Ohio",           tz: "America/New_York", count: 7, cities: "Cleveland 3 · Toledo 2 · Dayton 2" },
+  { id: "OH", name: "Ohio",           tz: "America/New_York", count: 6, cities: "Cleveland 3 · Dayton 2 · Toledo" },
   { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 2, cities: "Tulsa · Oklahoma City" },
   { id: "SC", name: "South Carolina", tz: "America/New_York", count: 4, cities: "Columbia 2 · Spartanburg · Greenville" },
   { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 0, cities: "No deals in escrow right now" },
@@ -165,7 +165,7 @@ const MARKETS = [
 // Every city with deals in escrow (In Escrow group, Oct 23, 2026). n = deals, at = map position.
 const CITIES = [
   { st: "OH", name: "Cleveland", n: 3, at: [738.5,223] },
-  { st: "OH", name: "Toledo", n: 2, at: [707,224] },
+  { st: "OH", name: "Toledo", n: 1, at: [707,224] },
   { st: "OH", name: "Dayton", n: 2, at: [701.5,268] },
   { st: "AL", name: "Birmingham", n: 2, at: [670.5,415.5] },
   { st: "AL", name: "Huntsville", n: 1, at: [672,387.5] },
@@ -190,7 +190,7 @@ const CITIES = [
 ];
 // properties blasted out to buyers (Dispo - Live Properties), pulled Oct 28, 2026
 const BLASTED = [
-  { st: "PA", name: "Pittsburgh", n: 2, at: [771,242] },
+  { st: "PA", name: "Pittsburgh", n: 1, at: [771,242] },
   { st: "TN", name: "Memphis", n: 1, at: [607.5,383] },
   { st: "MO", name: "Kansas City", n: 1, at: [523,295.5] },
   { st: "IA", name: "Des Moines", n: 1, at: [538.5,238.5] },
