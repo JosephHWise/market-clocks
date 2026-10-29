@@ -205,6 +205,20 @@
       "n": 1,
       "lon": -76.49,
       "lat": 37.09
+    },
+    {
+      "st": "TN",
+      "city": "Chattanooga",
+      "n": 1,
+      "lon": -85.31,
+      "lat": 35.05
+    },
+    {
+      "st": "OH",
+      "city": "Cincinnati",
+      "n": 1,
+      "lon": -84.51,
+      "lat": 39.1
     }
   ]
 }
