@@ -163,13 +163,6 @@
       "lat": 41.26
     },
     {
-      "st": "CA",
-      "city": "Simi Valley",
-      "n": 1,
-      "lon": -118.78,
-      "lat": 34.27
-    },
-    {
       "st": "AL",
       "city": "Mobile",
       "n": 1,
@@ -240,6 +233,13 @@
       "n": 1,
       "lon": -98.39,
       "lat": 34.6
+    },
+    {
+      "st": "OK",
+      "city": "Collinsville",
+      "n": 1,
+      "lon": -95.84,
+      "lat": 36.36
     }
   ]
 }
