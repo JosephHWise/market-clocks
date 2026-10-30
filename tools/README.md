@@ -9,3 +9,6 @@ The page's escrow and blasted-out numbers are baked into `index.html`. To refres
 2. Rewrite `tools/data.json`: `asof` (YYYY-MM-DD), and per city `{st, city, n, lon, lat}` for `escrow` and `blasted`. Reuse coordinates already in the file; add lon/lat for any new city.
 3. `node tools/refresh.js` (no install needed) rewrites the arrays, the nine clocks' counts and city lists, and the "as of" text.
 4. Commit and push to `main`; Vercel deploys automatically. Skip the commit if nothing but the date changed.
+
+## Time zone exceptions
+A city whose zone differs from its state (East Tennessee is Eastern) goes in `CITY_TZ` in index.html, keyed "ST:City". refresh.js never touches it.
