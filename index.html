@@ -204,6 +204,11 @@ const BLASTED = [
   { st: "OK", name: "Collinsville", n: 1, at: [501,358.5] },
   { st: "OK", name: "Tulsa", n: 1, at: [498,363.5] },
 ];
+// cities whose time zone differs from the rest of their state (East Tennessee runs on Eastern time)
+const CITY_TZ = {
+  "TN:Chattanooga": "America/New_York", "TN:Lupton City": "America/New_York", "TN:Knoxville": "America/New_York",
+  "TN:Cleveland": "America/New_York", "TN:Johnson City": "America/New_York", "TN:Kingsport": "America/New_York", "TN:Bristol": "America/New_York",
+};
 const SMALL_STATES = new Set(["CT", "DE", "MA", "MD", "NH", "NJ", "RI", "VT"]);
 const TOUR_START = 9, TOUR_END = 18;
 const ZONES = [
@@ -426,8 +431,8 @@ function draw() {
   const showTime = zoom >= 1.6;
   const tfs = Math.max(9, H * 0.016) * Math.min(1.7, Math.sqrt(zoom));
   const now = new Date(), timeCache = {};
-  const cityTime = st => {
-    const tz = ZONE_TZ[stateZone[st]] || "America/New_York";
+  const cityTime = (st, name) => {
+    const tz = CITY_TZ[st + ":" + name] || ZONE_TZ[stateZone[st]] || "America/New_York";
     if (!timeCache[tz]) {
       const t = localParts(tz, now);
       const h12 = t.h % 12 || 12;
@@ -438,7 +443,7 @@ function draw() {
   ctx.textBaseline = "middle"; ctx.textAlign = "left";
   for (const cp of cityPts) {
     const count = String(cp.c.n);
-    const t = cityTime(cp.c.st);
+    const t = cityTime(cp.c.st, cp.c.name);
     ctx.font = `800 ${tfs}px "IBM Plex Sans", system-ui, sans-serif`;
     const cw = ctx.measureText(count).width;
     ctx.font = `600 ${tfs * 0.85}px "IBM Plex Mono", ui-monospace, monospace`;
