@@ -94,13 +94,6 @@
   },
   {
    "st": "SC",
-   "city": "Spartanburg",
-   "n": 1,
-   "lon": -81.93,
-   "lat": 34.95
-  },
-  {
-   "st": "SC",
    "city": "Greenville",
    "n": 1,
    "lon": -82.39,
@@ -191,20 +184,6 @@
    "n": 1,
    "lon": -83.6,
    "lat": 32.61
-  },
-  {
-   "st": "VA",
-   "city": "Newport News",
-   "n": 1,
-   "lon": -76.49,
-   "lat": 37.09
-  },
-  {
-   "st": "TN",
-   "city": "Chattanooga",
-   "n": 1,
-   "lon": -85.31,
-   "lat": 35.05
   },
   {
    "st": "OH",
