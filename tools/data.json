@@ -180,20 +180,6 @@
  "blasted": [
   {
    "st": "TN",
-   "city": "Memphis",
-   "n": 1,
-   "lon": -90.05,
-   "lat": 35.15
-  },
-  {
-   "st": "IA",
-   "city": "Des Moines",
-   "n": 1,
-   "lon": -93.61,
-   "lat": 41.59
-  },
-  {
-   "st": "TN",
    "city": "Lupton City",
    "n": 1,
    "lon": -85.27,
