@@ -132,7 +132,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine market clocks · 29 in escrow · 10 blasted out as of Oct 29, 2026</div>
+    <div class="sub" id="asof">Nine market clocks · 29 in escrow · 11 blasted out as of Oct 30, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
@@ -144,7 +144,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
     <div class="legend" id="legend"></div>
   </aside>
   <footer>
-    Counts come from the In Escrow group on the Kingdom Homes board in monday.com, pulled Oct 29, 2026. Clocks group deals by state; map columns go city by city, using the city in each property's address. Escrow Purgatory deals are not counted. Cream map columns are the properties in the Dispo Live Properties group (blasted out to buyers).
+    Counts come from the In Escrow group on the Kingdom Homes board in monday.com, pulled Oct 30, 2026. Clocks group deals by state; map columns go city by city, using the city in each property's address. Escrow Purgatory deals are not counted. Cream map columns are the properties in the Dispo Live Properties group (blasted out to buyers).
     Tour hours are 9 AM to 6 PM local time. On the map each state takes its main time zone, so split states like Texas, Florida and Tennessee show one zone.
   </footer>
 </div>
@@ -153,8 +153,8 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 // Edit this list to swap markets. Order sets the wall order.
 const MARKETS = [
   { id: "NC", name: "North Carolina", tz: "America/New_York", count: 3, cities: "Charlotte · Fayetteville · Greensboro" },
-  { id: "VA", name: "Virginia",       tz: "America/New_York", count: 0, cities: "No deals in escrow right now" },
-  { id: "OH", name: "Ohio",           tz: "America/New_York", count: 6, cities: "Cleveland 2 · Dayton 2 · Toledo · Cincinnati" },
+  { id: "VA", name: "Virginia",       tz: "America/New_York", count: 1, cities: "North Chesterfield" },
+  { id: "OH", name: "Ohio",           tz: "America/New_York", count: 5, cities: "Dayton 2 · Cleveland · Toledo · Cincinnati" },
   { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 2, cities: "Tulsa · Oklahoma City" },
   { id: "SC", name: "South Carolina", tz: "America/New_York", count: 4, cities: "Columbia 2 · Spartanburg · Greenville" },
   { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 0, cities: "No deals in escrow right now" },
@@ -164,7 +164,7 @@ const MARKETS = [
 ];
 // Every city with deals in escrow (In Escrow group, Oct 23, 2026). n = deals, at = map position.
 const CITIES = [
-  { st: "OH", name: "Cleveland", n: 2, at: [738.5,223] },
+  { st: "OH", name: "Cleveland", n: 1, at: [738.5,223] },
   { st: "OH", name: "Dayton", n: 2, at: [701.5,268] },
   { st: "OH", name: "Toledo", n: 1, at: [707,224] },
   { st: "OH", name: "Cincinnati", n: 1, at: [698,284] },
@@ -188,8 +188,9 @@ const CITIES = [
   { st: "MO", name: "Kansas City", n: 1, at: [523,295.5] },
   { st: "NE", name: "Omaha", n: 1, at: [499,246.5] },
   { st: "AL", name: "Mobile", n: 1, at: [653,481.5] },
+  { st: "VA", name: "North Chesterfield", n: 1, at: [826.5,302] },
 ];
-// properties blasted out to buyers (Dispo - Live Properties), pulled Oct 29, 2026
+// properties blasted out to buyers (Dispo - Live Properties), pulled Oct 30, 2026
 const BLASTED = [
   { st: "TN", name: "Memphis", n: 1, at: [607.5,383] },
   { st: "IA", name: "Des Moines", n: 1, at: [538.5,238.5] },
@@ -201,6 +202,7 @@ const BLASTED = [
   { st: "OK", name: "Enid", n: 1, at: [464,357.5] },
   { st: "OK", name: "Lawton", n: 1, at: [454,398.5] },
   { st: "OK", name: "Collinsville", n: 1, at: [501,358.5] },
+  { st: "OK", name: "Tulsa", n: 1, at: [498,363.5] },
 ];
 const SMALL_STATES = new Set(["CT", "DE", "MA", "MD", "NH", "NJ", "RI", "VT"]);
 const TOUR_START = 9, TOUR_END = 18;
