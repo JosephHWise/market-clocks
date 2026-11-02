@@ -52,13 +52,6 @@
   },
   {
    "st": "NC",
-   "city": "Charlotte",
-   "n": 1,
-   "lon": -80.84,
-   "lat": 35.23
-  },
-  {
-   "st": "NC",
    "city": "Fayetteville",
    "n": 1,
    "lon": -78.88,
@@ -88,7 +81,7 @@
   {
    "st": "SC",
    "city": "Columbia",
-   "n": 2,
+   "n": 1,
    "lon": -81.03,
    "lat": 34.0
   },
@@ -133,13 +126,6 @@
    "n": 1,
    "lon": -117.38,
    "lat": 33.2
-  },
-  {
-   "st": "PA",
-   "city": "Pittsburgh",
-   "n": 1,
-   "lon": -79.99,
-   "lat": 40.44
   },
   {
    "st": "MO",
