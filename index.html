@@ -157,9 +157,9 @@ const MARKETS = [
   { id: "OH", name: "Ohio",           tz: "America/New_York", count: 5, cities: "Dayton 2 · Cleveland · Toledo · Cincinnati" },
   { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 2, cities: "Tulsa · Oklahoma City" },
   { id: "SC", name: "South Carolina", tz: "America/New_York", count: 2, cities: "Columbia · Greenville" },
-  { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 0, cities: "No deals in escrow right now" },
+  { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 1, cities: "Chattanooga" },
   { id: "IN", name: "Indiana",        tz: "America/Indiana/Indianapolis", count: 3, cities: "Indianapolis 2 · South Bend" },
-  { id: "MO", name: "Missouri",       tz: "America/Chicago",  count: 1, cities: "Kansas City" },
+  { id: "MO", name: "Missouri",       tz: "America/Chicago",  count: 0, cities: "No deals in escrow right now" },
   { id: "AZ", name: "Arizona",        tz: "America/Phoenix",  count: 0, cities: "No deals in escrow right now" },
 ];
 // Every city with deals in escrow (In Escrow group, Oct 23, 2026). n = deals, at = map position.
@@ -181,16 +181,15 @@ const CITIES = [
   { st: "IN", name: "South Bend", n: 1, at: [661.5,228.5] },
   { st: "GA", name: "Covington", n: 1, at: [725,407.5] },
   { st: "CA", name: "Oceanside", n: 1, at: [98,386] },
-  { st: "MO", name: "Kansas City", n: 1, at: [523,295.5] },
   { st: "NE", name: "Omaha", n: 1, at: [499,246.5] },
   { st: "AL", name: "Mobile", n: 1, at: [653,481.5] },
   { st: "VA", name: "North Chesterfield", n: 1, at: [826.5,302] },
   { st: "VA", name: "Newport News", n: 1, at: [845.5,306] },
+  { st: "TN", name: "Chattanooga", n: 1, at: [694.5,377.5] },
 ];
 // properties blasted out to buyers (Dispo - Live Properties), pulled Nov 3, 2026
 const BLASTED = [
   { st: "GA", name: "Warner Robins", n: 1, at: [733,429] },
-  { st: "OH", name: "Cincinnati", n: 1, at: [698,284] },
   { st: "OK", name: "Enid", n: 1, at: [464,357.5] },
   { st: "OK", name: "Lawton", n: 2, at: [454,398.5] },
   { st: "OK", name: "Collinsville", n: 1, at: [501,358.5] },
@@ -200,6 +199,7 @@ const BLASTED = [
   { st: "IN", name: "Elkhart", n: 1, at: [666,228] },
   { st: "NC", name: "Charlotte", n: 1, at: [775.5,362.5] },
   { st: "OK", name: "McAlester", n: 1, at: [502.5,391.5] },
+  { st: "TN", name: "Memphis", n: 1, at: [607.5,383] },
 ];
 // cities whose time zone differs from the rest of their state (East Tennessee runs on Eastern time)
 const CITY_TZ = {
