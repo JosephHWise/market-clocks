@@ -158,13 +158,6 @@
  ],
  "blasted": [
   {
-   "st": "TN",
-   "city": "Lupton City",
-   "n": 1,
-   "lon": -85.27,
-   "lat": 35.11
-  },
-  {
    "st": "GA",
    "city": "Warner Robins",
    "n": 1,
@@ -226,6 +219,20 @@
    "n": 1,
    "lon": -85.98,
    "lat": 41.68
+  },
+  {
+   "st": "NC",
+   "city": "Charlotte",
+   "n": 1,
+   "lon": -80.84,
+   "lat": 35.23
+  },
+  {
+   "st": "OK",
+   "city": "McAlester",
+   "n": 1,
+   "lon": -95.77,
+   "lat": 34.93
   }
  ]
 }
