@@ -132,7 +132,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine market clocks · 23 in escrow · 15 blasted out as of Nov 4, 2026</div>
+    <div class="sub" id="asof">Nine market clocks · 24 in escrow · 14 blasted out as of Nov 4, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
@@ -152,7 +152,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <script>
 // Edit this list to swap markets. Order sets the wall order.
 const MARKETS = [
-  { id: "NC", name: "North Carolina", tz: "America/New_York", count: 2, cities: "Fayetteville · Greensboro" },
+  { id: "NC", name: "North Carolina", tz: "America/New_York", count: 3, cities: "Fayetteville · Greensboro · Charlotte" },
   { id: "VA", name: "Virginia",       tz: "America/New_York", count: 2, cities: "North Chesterfield · Newport News" },
   { id: "OH", name: "Ohio",           tz: "America/New_York", count: 5, cities: "Dayton 2 · Cleveland · Toledo · Cincinnati" },
   { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 2, cities: "Tulsa · Oklahoma City" },
@@ -185,6 +185,7 @@ const CITIES = [
   { st: "VA", name: "North Chesterfield", n: 1, at: [826.5,302] },
   { st: "VA", name: "Newport News", n: 1, at: [845.5,306] },
   { st: "TN", name: "Chattanooga", n: 1, at: [694.5,377.5] },
+  { st: "NC", name: "Charlotte", n: 1, at: [775.5,362.5] },
 ];
 // properties blasted out to buyers (Dispo - Live Properties), pulled Nov 4, 2026
 const BLASTED = [
@@ -196,7 +197,6 @@ const BLASTED = [
   { st: "IN", name: "Indianapolis", n: 1, at: [667.5,271.5] },
   { st: "OH", name: "Cleveland", n: 1, at: [738.5,223] },
   { st: "IN", name: "Elkhart", n: 1, at: [666,228] },
-  { st: "NC", name: "Charlotte", n: 1, at: [775.5,362.5] },
   { st: "OK", name: "McAlester", n: 1, at: [502.5,391.5] },
   { st: "TN", name: "Memphis", n: 1, at: [607.5,383] },
   { st: "NC", name: "Goldsboro", n: 1, at: [826.5,350] },
