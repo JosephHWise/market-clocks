@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-05",
+ "asof": "2026-11-06",
  "escrow": [
   {
    "st": "OH",
@@ -157,13 +157,6 @@
   }
  ],
  "blasted": [
-  {
-   "st": "GA",
-   "city": "Warner Robins",
-   "n": 1,
-   "lon": -83.6,
-   "lat": 32.61
-  },
   {
    "st": "OK",
    "city": "Enid",
