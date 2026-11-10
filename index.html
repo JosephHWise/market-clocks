@@ -132,7 +132,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine market clocks · 26 in escrow · 17 blasted out as of Nov 10, 2026</div>
+    <div class="sub" id="asof">Nine market clocks · 25 in escrow · 12 blasted out as of Nov 10, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
@@ -154,7 +154,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 const MARKETS = [
   { id: "NC", name: "North Carolina", tz: "America/New_York", count: 4, cities: "Fayetteville · Greensboro · Charlotte · Goldsboro" },
   { id: "VA", name: "Virginia",       tz: "America/New_York", count: 3, cities: "North Chesterfield · Newport News · Norfolk" },
-  { id: "OH", name: "Ohio",           tz: "America/New_York", count: 4, cities: "Dayton 2 · Cleveland · Cincinnati" },
+  { id: "OH", name: "Ohio",           tz: "America/New_York", count: 3, cities: "Cleveland · Dayton · Cincinnati" },
   { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 3, cities: "Tulsa 2 · Oklahoma City" },
   { id: "SC", name: "South Carolina", tz: "America/New_York", count: 1, cities: "Columbia" },
   { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 1, cities: "Chattanooga" },
@@ -165,7 +165,7 @@ const MARKETS = [
 // Every city with deals in escrow (In Escrow group, Oct 23, 2026). n = deals, at = map position.
 const CITIES = [
   { st: "OH", name: "Cleveland", n: 1, at: [738.5,223] },
-  { st: "OH", name: "Dayton", n: 2, at: [701.5,268] },
+  { st: "OH", name: "Dayton", n: 1, at: [701.5,268] },
   { st: "OH", name: "Cincinnati", n: 1, at: [698,284] },
   { st: "AL", name: "Huntsville", n: 1, at: [672,387.5] },
   { st: "AL", name: "Montgomery", n: 1, at: [682.5,440.5] },
@@ -190,19 +190,17 @@ const CITIES = [
 ];
 // properties blasted out to buyers (Dispo - Live Properties), pulled Nov 10, 2026
 const BLASTED = [
-  { st: "OK", name: "Lawton", n: 1, at: [454,398.5] },
   { st: "OK", name: "Collinsville", n: 1, at: [501,358.5] },
-  { st: "OK", name: "Tulsa", n: 1, at: [498,363.5] },
-  { st: "IN", name: "Indianapolis", n: 3, at: [667.5,271.5] },
-  { st: "OH", name: "Cleveland", n: 2, at: [738.5,223] },
+  { st: "IN", name: "Indianapolis", n: 2, at: [667.5,271.5] },
+  { st: "OH", name: "Cleveland", n: 1, at: [738.5,223] },
   { st: "OK", name: "McAlester", n: 1, at: [502.5,391.5] },
-  { st: "TN", name: "Memphis", n: 2, at: [607.5,383] },
-  { st: "SC", name: "Columbia", n: 1, at: [776.5,390.5] },
+  { st: "TN", name: "Memphis", n: 1, at: [607.5,383] },
   { st: "NC", name: "Winston-Salem", n: 1, at: [783,341] },
   { st: "VA", name: "Portsmouth", n: 1, at: [850,311] },
   { st: "CA", name: "Harbor City", n: 1, at: [84.5,368.5] },
   { st: "AL", name: "Mobile", n: 1, at: [653,481.5] },
   { st: "TN", name: "Knoxville", n: 1, at: [717.5,354] },
+  { st: "NC", name: "High Point", n: 1, at: [788,343.5] },
 ];
 // cities whose time zone differs from the rest of their state (East Tennessee runs on Eastern time)
 const CITY_TZ = {
