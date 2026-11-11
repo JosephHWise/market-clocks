@@ -132,7 +132,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine market clocks · 25 in escrow · 12 blasted out as of Nov 10, 2026</div>
+    <div class="sub" id="asof">Nine market clocks · 25 in escrow · 10 blasted out as of Nov 11, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
@@ -144,7 +144,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
     <div class="legend" id="legend"></div>
   </aside>
   <footer>
-    Counts come from the In Escrow group on the Kingdom Homes board in monday.com, pulled Nov 10, 2026. Clocks group deals by state; map columns go city by city, using the city in each property's address. Escrow Purgatory deals are not counted. Cream map columns are the properties in the Dispo Live Properties group (blasted out to buyers).
+    Counts come from the In Escrow group on the Kingdom Homes board in monday.com, pulled Nov 11, 2026. Clocks group deals by state; map columns go city by city, using the city in each property's address. Escrow Purgatory deals are not counted. Cream map columns are the properties in the Dispo Live Properties group (blasted out to buyers).
     Tour hours are 9 AM to 6 PM local time. On the map each state takes its main time zone, so split states like Texas, Florida and Tennessee show one zone.
   </footer>
 </div>
@@ -153,9 +153,9 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 // Edit this list to swap markets. Order sets the wall order.
 const MARKETS = [
   { id: "NC", name: "North Carolina", tz: "America/New_York", count: 4, cities: "Fayetteville · Greensboro · Charlotte · Goldsboro" },
-  { id: "VA", name: "Virginia",       tz: "America/New_York", count: 3, cities: "North Chesterfield · Newport News · Norfolk" },
+  { id: "VA", name: "Virginia",       tz: "America/New_York", count: 4, cities: "North Chesterfield · Newport News · Norfolk · Portsmouth" },
   { id: "OH", name: "Ohio",           tz: "America/New_York", count: 3, cities: "Cleveland · Dayton · Cincinnati" },
-  { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 3, cities: "Tulsa 2 · Oklahoma City" },
+  { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 2, cities: "Tulsa · Oklahoma City" },
   { id: "SC", name: "South Carolina", tz: "America/New_York", count: 1, cities: "Columbia" },
   { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 1, cities: "Chattanooga" },
   { id: "IN", name: "Indiana",        tz: "America/Indiana/Indianapolis", count: 3, cities: "Indianapolis 2 · South Bend" },
@@ -171,7 +171,7 @@ const CITIES = [
   { st: "AL", name: "Montgomery", n: 1, at: [682.5,440.5] },
   { st: "NC", name: "Fayetteville", n: 1, at: [811.5,360.5] },
   { st: "NC", name: "Greensboro", n: 1, at: [791,340] },
-  { st: "OK", name: "Tulsa", n: 2, at: [498,363.5] },
+  { st: "OK", name: "Tulsa", n: 1, at: [498,363.5] },
   { st: "OK", name: "Oklahoma City", n: 1, at: [470,379] },
   { st: "SC", name: "Columbia", n: 1, at: [776.5,390.5] },
   { st: "IN", name: "Indianapolis", n: 2, at: [667.5,271.5] },
@@ -187,16 +187,15 @@ const CITIES = [
   { st: "VA", name: "Norfolk", n: 1, at: [850,311] },
   { st: "MO", name: "Kansas City", n: 1, at: [523,295.5] },
   { st: "GA", name: "Warner Robins", n: 1, at: [732.5,429] },
+  { st: "VA", name: "Portsmouth", n: 1, at: [850,311] },
 ];
-// properties blasted out to buyers (Dispo - Live Properties), pulled Nov 10, 2026
+// properties blasted out to buyers (Dispo - Live Properties), pulled Nov 11, 2026
 const BLASTED = [
-  { st: "OK", name: "Collinsville", n: 1, at: [501,358.5] },
   { st: "IN", name: "Indianapolis", n: 2, at: [667.5,271.5] },
   { st: "OH", name: "Cleveland", n: 1, at: [738.5,223] },
   { st: "OK", name: "McAlester", n: 1, at: [502.5,391.5] },
   { st: "TN", name: "Memphis", n: 1, at: [607.5,383] },
   { st: "NC", name: "Winston-Salem", n: 1, at: [783,341] },
-  { st: "VA", name: "Portsmouth", n: 1, at: [850,311] },
   { st: "CA", name: "Harbor City", n: 1, at: [84.5,368.5] },
   { st: "AL", name: "Mobile", n: 1, at: [653,481.5] },
   { st: "TN", name: "Knoxville", n: 1, at: [717.5,354] },

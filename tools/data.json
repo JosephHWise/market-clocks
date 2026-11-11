@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-10",
+ "asof": "2026-11-11",
  "escrow": [
   {
    "st": "OH",
@@ -53,7 +53,7 @@
   {
    "st": "OK",
    "city": "Tulsa",
-   "n": 2,
+   "n": 1,
    "lon": -95.99,
    "lat": 36.15
   },
@@ -161,16 +161,16 @@
    "n": 1,
    "lon": -83.63,
    "lat": 32.62
+  },
+  {
+   "st": "VA",
+   "city": "Portsmouth",
+   "n": 1,
+   "lon": -76.3,
+   "lat": 36.84
   }
  ],
  "blasted": [
-  {
-   "st": "OK",
-   "city": "Collinsville",
-   "n": 1,
-   "lon": -95.84,
-   "lat": 36.36
-  },
   {
    "st": "IN",
    "city": "Indianapolis",
@@ -205,13 +205,6 @@
    "n": 1,
    "lon": -80.24,
    "lat": 36.1
-  },
-  {
-   "st": "VA",
-   "city": "Portsmouth",
-   "n": 1,
-   "lon": -76.3,
-   "lat": 36.84
   },
   {
    "st": "CA",
