@@ -10,13 +10,6 @@
   },
   {
    "st": "OH",
-   "city": "Dayton",
-   "n": 1,
-   "lon": -84.19,
-   "lat": 39.76
-  },
-  {
-   "st": "OH",
    "city": "Cincinnati",
    "n": 1,
    "lon": -84.51,
@@ -214,32 +207,11 @@
    "lat": 41.5
   },
   {
-   "st": "OK",
-   "city": "McAlester",
-   "n": 1,
-   "lon": -95.77,
-   "lat": 34.93
-  },
-  {
-   "st": "NC",
-   "city": "Winston-Salem",
-   "n": 1,
-   "lon": -80.24,
-   "lat": 36.1
-  },
-  {
    "st": "CA",
    "city": "Harbor City",
    "n": 1,
    "lon": -118.3,
    "lat": 33.79
-  },
-  {
-   "st": "AL",
-   "city": "Mobile",
-   "n": 1,
-   "lon": -88.04,
-   "lat": 30.69
   },
   {
    "st": "CA",
