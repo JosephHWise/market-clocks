@@ -132,7 +132,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine market clocks · 29 in escrow · 7 blasted out as of Nov 13, 2026</div>
+    <div class="sub" id="asof">Nine market clocks · 30 in escrow · 7 blasted out as of Nov 13, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
@@ -157,7 +157,7 @@ const MARKETS = [
   { id: "OH", name: "Ohio",           tz: "America/New_York", count: 3, cities: "Cleveland · Dayton · Cincinnati" },
   { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 2, cities: "Tulsa · Oklahoma City" },
   { id: "SC", name: "South Carolina", tz: "America/New_York", count: 1, cities: "Columbia" },
-  { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 2, cities: "Chattanooga · Knoxville" },
+  { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 3, cities: "Chattanooga · Knoxville · Memphis" },
   { id: "IN", name: "Indiana",        tz: "America/Indiana/Indianapolis", count: 5, cities: "Indianapolis 3 · South Bend · Greenwood" },
   { id: "MO", name: "Missouri",       tz: "America/Chicago",  count: 1, cities: "Kansas City" },
   { id: "AZ", name: "Arizona",        tz: "America/Phoenix",  count: 0, cities: "No deals in escrow right now" },
@@ -191,6 +191,7 @@ const CITIES = [
   { st: "NC", name: "High Point", n: 1, at: [788,343.5] },
   { st: "TN", name: "Knoxville", n: 1, at: [717.5,354] },
   { st: "IN", name: "Greenwood", n: 1, at: [669,275.5] },
+  { st: "TN", name: "Memphis", n: 1, at: [607.5,383] },
 ];
 // properties blasted out to buyers (Dispo - Live Properties), pulled Nov 13, 2026
 const BLASTED = [
