@@ -17,13 +17,6 @@
   },
   {
    "st": "AL",
-   "city": "Huntsville",
-   "n": 1,
-   "lon": -86.59,
-   "lat": 34.73
-  },
-  {
-   "st": "AL",
    "city": "Montgomery",
    "n": 1,
    "lon": -86.3,
@@ -98,13 +91,6 @@
    "n": 1,
    "lon": -88.04,
    "lat": 30.69
-  },
-  {
-   "st": "VA",
-   "city": "North Chesterfield",
-   "n": 1,
-   "lon": -77.47,
-   "lat": 37.42
   },
   {
    "st": "VA",
