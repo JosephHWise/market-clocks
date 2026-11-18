@@ -65,13 +65,6 @@
    "lat": 41.68
   },
   {
-   "st": "GA",
-   "city": "Covington",
-   "n": 1,
-   "lon": -83.86,
-   "lat": 33.6
-  },
-  {
    "st": "NE",
    "city": "Omaha",
    "n": 1,
@@ -186,13 +179,6 @@
  ],
  "blasted": [
   {
-   "st": "IN",
-   "city": "Indianapolis",
-   "n": 1,
-   "lon": -86.16,
-   "lat": 39.77
-  },
-  {
    "st": "OH",
    "city": "Cleveland",
    "n": 1,
@@ -233,6 +219,27 @@
    "n": 1,
    "lon": -83.92,
    "lat": 35.96
+  },
+  {
+   "st": "OH",
+   "city": "Dayton",
+   "n": 1,
+   "lon": -84.19,
+   "lat": 39.76
+  },
+  {
+   "st": "NC",
+   "city": "Charlotte",
+   "n": 1,
+   "lon": -80.84,
+   "lat": 35.23
+  },
+  {
+   "st": "OK",
+   "city": "Lawton",
+   "n": 1,
+   "lon": -98.39,
+   "lat": 34.6
   }
  ]
 }
