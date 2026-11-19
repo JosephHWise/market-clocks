@@ -4,7 +4,7 @@
   {
    "st": "OH",
    "city": "Cleveland",
-   "n": 2,
+   "n": 3,
    "lon": -81.69,
    "lat": 41.5
   },
@@ -72,13 +72,6 @@
    "lat": 41.26
   },
   {
-   "st": "AL",
-   "city": "Mobile",
-   "n": 1,
-   "lon": -88.04,
-   "lat": 30.69
-  },
-  {
    "st": "VA",
    "city": "Newport News",
    "n": 1,
@@ -91,13 +84,6 @@
    "n": 1,
    "lon": -85.31,
    "lat": 35.05
-  },
-  {
-   "st": "NC",
-   "city": "Charlotte",
-   "n": 1,
-   "lon": -80.84,
-   "lat": 35.23
   },
   {
    "st": "NC",
@@ -182,6 +168,13 @@
    "n": 1,
    "lon": -77.44,
    "lat": 37.54
+  },
+  {
+   "st": "IA",
+   "city": "Des Moines",
+   "n": 1,
+   "lon": -93.61,
+   "lat": 41.59
   }
  ],
  "blasted": [

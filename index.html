@@ -152,9 +152,9 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <script>
 // Edit this list to swap markets. Order sets the wall order.
 const MARKETS = [
-  { id: "NC", name: "North Carolina", tz: "America/New_York", count: 5, cities: "Fayetteville · Greensboro · Charlotte · Goldsboro · High Point" },
+  { id: "NC", name: "North Carolina", tz: "America/New_York", count: 4, cities: "Fayetteville · Greensboro · Goldsboro · High Point" },
   { id: "VA", name: "Virginia",       tz: "America/New_York", count: 5, cities: "Newport News · Norfolk · Portsmouth · North Chesterfield · Richmond" },
-  { id: "OH", name: "Ohio",           tz: "America/New_York", count: 3, cities: "Cleveland 2 · Cincinnati" },
+  { id: "OH", name: "Ohio",           tz: "America/New_York", count: 4, cities: "Cleveland 3 · Cincinnati" },
   { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 2, cities: "Tulsa · Oklahoma City" },
   { id: "SC", name: "South Carolina", tz: "America/New_York", count: 1, cities: "Columbia" },
   { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 3, cities: "Chattanooga · Knoxville · Memphis" },
@@ -164,7 +164,7 @@ const MARKETS = [
 ];
 // Every city with deals in escrow (In Escrow group, Oct 23, 2026). n = deals, at = map position.
 const CITIES = [
-  { st: "OH", name: "Cleveland", n: 2, at: [738.5,223] },
+  { st: "OH", name: "Cleveland", n: 3, at: [738.5,223] },
   { st: "OH", name: "Cincinnati", n: 1, at: [698,284] },
   { st: "NC", name: "Fayetteville", n: 1, at: [811.5,360.5] },
   { st: "NC", name: "Greensboro", n: 1, at: [791,340] },
@@ -174,10 +174,8 @@ const CITIES = [
   { st: "IN", name: "Indianapolis", n: 3, at: [667.5,271.5] },
   { st: "IN", name: "South Bend", n: 1, at: [661.5,228.5] },
   { st: "NE", name: "Omaha", n: 1, at: [499,246.5] },
-  { st: "AL", name: "Mobile", n: 1, at: [653,481.5] },
   { st: "VA", name: "Newport News", n: 1, at: [845.5,306] },
   { st: "TN", name: "Chattanooga", n: 1, at: [694.5,377.5] },
-  { st: "NC", name: "Charlotte", n: 1, at: [775.5,362.5] },
   { st: "NC", name: "Goldsboro", n: 1, at: [826.5,350] },
   { st: "VA", name: "Norfolk", n: 1, at: [850,311] },
   { st: "MO", name: "Kansas City", n: 1, at: [523,295.5] },
@@ -190,6 +188,7 @@ const CITIES = [
   { st: "CA", name: "Harbor City", n: 1, at: [84.5,368.5] },
   { st: "VA", name: "North Chesterfield", n: 1, at: [826.5,302] },
   { st: "VA", name: "Richmond", n: 1, at: [826.5,299.5] },
+  { st: "IA", name: "Des Moines", n: 1, at: [538.5,238.5] },
 ];
 // properties blasted out to buyers (Dispo - Live Properties), pulled Nov 19, 2026
 const BLASTED = [
