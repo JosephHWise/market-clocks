@@ -156,13 +156,6 @@
    "lat": 37.42
   },
   {
-   "st": "VA",
-   "city": "Richmond",
-   "n": 1,
-   "lon": -77.44,
-   "lat": 37.54
-  },
-  {
    "st": "IA",
    "city": "Des Moines",
    "n": 1,
@@ -184,13 +177,6 @@
    "n": 1,
    "lon": -117.61,
    "lat": 33.43
-  },
-  {
-   "st": "OK",
-   "city": "Broken Arrow",
-   "n": 1,
-   "lon": -95.79,
-   "lat": 36.05
   },
   {
    "st": "TN",
