@@ -132,7 +132,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine market clocks · 26 in escrow · 6 blasted out as of Nov 20, 2026</div>
+    <div class="sub" id="asof">Nine market clocks · 27 in escrow · 6 blasted out as of Nov 20, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
@@ -158,7 +158,7 @@ const MARKETS = [
   { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 2, cities: "Tulsa · Oklahoma City" },
   { id: "SC", name: "South Carolina", tz: "America/New_York", count: 1, cities: "Columbia" },
   { id: "TN", name: "Tennessee",      tz: "America/Chicago",  count: 3, cities: "Chattanooga · Knoxville · Memphis" },
-  { id: "IN", name: "Indiana",        tz: "America/Indiana/Indianapolis", count: 5, cities: "Indianapolis 3 · South Bend · Greenwood" },
+  { id: "IN", name: "Indiana",        tz: "America/Indiana/Indianapolis", count: 6, cities: "Indianapolis 4 · South Bend · Greenwood" },
   { id: "MO", name: "Missouri",       tz: "America/Chicago",  count: 1, cities: "Kansas City" },
   { id: "AZ", name: "Arizona",        tz: "America/Phoenix",  count: 0, cities: "No deals in escrow right now" },
 ];
@@ -170,7 +170,7 @@ const CITIES = [
   { st: "OK", name: "Tulsa", n: 1, at: [498,363.5] },
   { st: "OK", name: "Oklahoma City", n: 1, at: [470,379] },
   { st: "SC", name: "Columbia", n: 1, at: [776.5,390.5] },
-  { st: "IN", name: "Indianapolis", n: 3, at: [667.5,271.5] },
+  { st: "IN", name: "Indianapolis", n: 4, at: [667.5,271.5] },
   { st: "IN", name: "South Bend", n: 1, at: [661.5,228.5] },
   { st: "NE", name: "Omaha", n: 1, at: [499,246.5] },
   { st: "VA", name: "Newport News", n: 1, at: [845.5,306] },
@@ -194,8 +194,8 @@ const BLASTED = [
   { st: "CA", name: "San Clemente", n: 1, at: [95,379.5] },
   { st: "TN", name: "Knoxville", n: 1, at: [717.5,354] },
   { st: "OH", name: "Dayton", n: 1, at: [701.5,268] },
-  { st: "NC", name: "Charlotte", n: 1, at: [775.5,362.5] },
   { st: "OK", name: "Lawton", n: 1, at: [454,398.5] },
+  { st: "OH", name: "Columbus", n: 1, at: [721.5,261] },
 ];
 // cities whose time zone differs from the rest of their state (East Tennessee runs on Eastern time)
 const CITY_TZ = {

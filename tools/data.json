@@ -46,7 +46,7 @@
   {
    "st": "IN",
    "city": "Indianapolis",
-   "n": 3,
+   "n": 4,
    "lon": -86.16,
    "lat": 39.77
   },
@@ -193,18 +193,18 @@
    "lat": 39.76
   },
   {
-   "st": "NC",
-   "city": "Charlotte",
-   "n": 1,
-   "lon": -80.84,
-   "lat": 35.23
-  },
-  {
    "st": "OK",
    "city": "Lawton",
    "n": 1,
    "lon": -98.39,
    "lat": 34.6
+  },
+  {
+   "st": "OH",
+   "city": "Columbus",
+   "n": 1,
+   "lon": -82.99,
+   "lat": 39.96
   }
  ]
 }
