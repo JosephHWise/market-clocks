@@ -132,7 +132,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine market clocks · 27 in escrow · 6 blasted out as of Nov 20, 2026</div>
+    <div class="sub" id="asof">Nine market clocks · 29 in escrow · 5 blasted out as of Nov 20, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
@@ -152,7 +152,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <script>
 // Edit this list to swap markets. Order sets the wall order.
 const MARKETS = [
-  { id: "NC", name: "North Carolina", tz: "America/New_York", count: 3, cities: "Fayetteville · Goldsboro · High Point" },
+  { id: "NC", name: "North Carolina", tz: "America/New_York", count: 4, cities: "Fayetteville · Goldsboro · High Point · Charlotte" },
   { id: "VA", name: "Virginia",       tz: "America/New_York", count: 4, cities: "Newport News · Norfolk · Portsmouth · North Chesterfield" },
   { id: "OH", name: "Ohio",           tz: "America/New_York", count: 3, cities: "Cleveland 2 · Cincinnati" },
   { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 2, cities: "Tulsa · Oklahoma City" },
@@ -187,11 +187,12 @@ const CITIES = [
   { st: "CA", name: "Harbor City", n: 1, at: [84.5,368.5] },
   { st: "VA", name: "North Chesterfield", n: 1, at: [826.5,302] },
   { st: "IA", name: "Des Moines", n: 1, at: [538.5,238.5] },
+  { st: "NC", name: "Charlotte", n: 1, at: [775.5,362.5] },
+  { st: "PA", name: "Pittsburgh", n: 1, at: [771,242] },
 ];
 // properties blasted out to buyers (Dispo - Live Properties), pulled Nov 20, 2026
 const BLASTED = [
   { st: "OH", name: "Cleveland", n: 1, at: [738.5,223] },
-  { st: "CA", name: "San Clemente", n: 1, at: [95,379.5] },
   { st: "TN", name: "Knoxville", n: 1, at: [717.5,354] },
   { st: "OH", name: "Dayton", n: 1, at: [701.5,268] },
   { st: "OK", name: "Lawton", n: 1, at: [454,398.5] },

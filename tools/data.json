@@ -161,6 +161,20 @@
    "n": 1,
    "lon": -93.61,
    "lat": 41.59
+  },
+  {
+   "st": "NC",
+   "city": "Charlotte",
+   "n": 1,
+   "lon": -80.84,
+   "lat": 35.23
+  },
+  {
+   "st": "PA",
+   "city": "Pittsburgh",
+   "n": 1,
+   "lon": -79.99,
+   "lat": 40.44
   }
  ],
  "blasted": [
@@ -170,13 +184,6 @@
    "n": 1,
    "lon": -81.69,
    "lat": 41.5
-  },
-  {
-   "st": "CA",
-   "city": "San Clemente",
-   "n": 1,
-   "lon": -117.61,
-   "lat": 33.43
   },
   {
    "st": "TN",
