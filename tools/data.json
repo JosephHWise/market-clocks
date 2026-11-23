@@ -198,6 +198,34 @@
    "n": 1,
    "lon": -82.99,
    "lat": 39.96
+  },
+  {
+   "st": "OK",
+   "city": "Collinsville",
+   "n": 1,
+   "lon": -95.84,
+   "lat": 36.36
+  },
+  {
+   "st": "IN",
+   "city": "Indianapolis",
+   "n": 1,
+   "lon": -86.16,
+   "lat": 39.77
+  },
+  {
+   "st": "VA",
+   "city": "Richmond",
+   "n": 1,
+   "lon": -77.44,
+   "lat": 37.54
+  },
+  {
+   "st": "CA",
+   "city": "Oakland",
+   "n": 1,
+   "lon": -122.27,
+   "lat": 37.8
   }
  ]
 }
