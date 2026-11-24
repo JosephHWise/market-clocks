@@ -132,7 +132,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine market clocks · 28 in escrow · 9 blasted out as of Nov 24, 2026</div>
+    <div class="sub" id="asof">Nine market clocks · 28 in escrow · 10 blasted out as of Nov 24, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
@@ -199,12 +199,14 @@ const BLASTED = [
   { st: "IN", name: "Indianapolis", n: 1, at: [667.5,271.5] },
   { st: "VA", name: "Richmond", n: 1, at: [826.5,299.5] },
   { st: "CA", name: "Oakland", n: 1, at: [37.5,261.5] },
-  { st: "NC", name: "Charlotte", n: 1, at: [775.5,362.5] },
+  { st: "IN", name: "Terre Haute", n: 1, at: [647,280.5] },
+  { st: "IN", name: "Evansville", n: 1, at: [647,315] },
 ];
 // cities whose time zone differs from the rest of their state (East Tennessee runs on Eastern time)
 const CITY_TZ = {
   "TN:Chattanooga": "America/New_York", "TN:Lupton City": "America/New_York", "TN:Knoxville": "America/New_York",
   "TN:Cleveland": "America/New_York", "TN:Johnson City": "America/New_York", "TN:Kingsport": "America/New_York", "TN:Bristol": "America/New_York",
+  "IN:Evansville": "America/Chicago", "IN:Terre Haute": "America/Chicago",
 };
 const SMALL_STATES = new Set(["CT", "DE", "MA", "MD", "NH", "NJ", "RI", "VT"]);
 const TOUR_START = 9, TOUR_END = 18;

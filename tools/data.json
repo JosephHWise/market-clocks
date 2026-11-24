@@ -228,11 +228,18 @@
    "lat": 37.8
   },
   {
-   "st": "NC",
-   "city": "Charlotte",
+   "st": "IN",
+   "city": "Terre Haute",
    "n": 1,
-   "lon": -80.84,
-   "lat": 35.23
+   "lon": -87.41,
+   "lat": 39.47
+  },
+  {
+   "st": "IN",
+   "city": "Evansville",
+   "n": 1,
+   "lon": -87.57,
+   "lat": 37.97
   }
  ]
 }
