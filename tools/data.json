@@ -9,13 +9,6 @@
    "lat": 35.47
   },
   {
-   "st": "NC",
-   "city": "Fayetteville",
-   "n": 1,
-   "lon": -78.88,
-   "lat": 35.05
-  },
-  {
    "st": "NE",
    "city": "Omaha",
    "n": 1,
@@ -46,7 +39,7 @@
   {
    "st": "OH",
    "city": "Cincinnati",
-   "n": 1,
+   "n": 2,
    "lon": -84.51,
    "lat": 39.1
   },
@@ -70,13 +63,6 @@
    "n": 1,
    "lon": -77.99,
    "lat": 35.38
-  },
-  {
-   "st": "VA",
-   "city": "Norfolk",
-   "n": 1,
-   "lon": -76.29,
-   "lat": 36.85
   },
   {
    "st": "GA",
