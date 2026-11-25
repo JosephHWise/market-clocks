@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-24",
+ "asof": "2026-11-25",
  "escrow": [
   {
    "st": "OK",
@@ -171,13 +171,6 @@
   }
  ],
  "blasted": [
-  {
-   "st": "OH",
-   "city": "Cleveland",
-   "n": 1,
-   "lon": -81.69,
-   "lat": 41.5
-  },
   {
    "st": "TN",
    "city": "Knoxville",
