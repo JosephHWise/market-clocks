@@ -132,7 +132,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 <div class="wrap">
   <header>
     <h1>Kingdom Homes · Market Clocks</h1>
-    <div class="sub" id="asof">Nine market clocks · 28 in escrow · 10 blasted out as of Nov 25, 2026</div>
+    <div class="sub" id="asof">Nine market clocks · 29 in escrow · 10 blasted out as of Nov 25, 2026</div>
   </header>
   <section class="wall" id="wall" aria-label="Market clocks"></section>
   <aside class="map-panel" aria-label="U.S. time zone map">
@@ -153,7 +153,7 @@ footer { color: var(--muted); font-size: .8rem; border-top: 1px solid var(--wall
 // Edit this list to swap markets. Order sets the wall order.
 const MARKETS = [
   { id: "NC", name: "North Carolina", tz: "America/New_York", count: 5, cities: "Charlotte 2 · Fayetteville · Goldsboro · High Point" },
-  { id: "VA", name: "Virginia",       tz: "America/New_York", count: 4, cities: "Newport News · Norfolk · Portsmouth · North Chesterfield" },
+  { id: "VA", name: "Virginia",       tz: "America/New_York", count: 5, cities: "Newport News · Norfolk · Portsmouth · North Chesterfield · Richmond" },
   { id: "OH", name: "Ohio",           tz: "America/New_York", count: 3, cities: "Cleveland 2 · Cincinnati" },
   { id: "OK", name: "Oklahoma",       tz: "America/Chicago",  count: 2, cities: "Oklahoma City · Tulsa" },
   { id: "SC", name: "South Carolina", tz: "America/New_York", count: 1, cities: "Columbia" },
@@ -188,6 +188,7 @@ const CITIES = [
   { st: "IA", name: "Des Moines", n: 1, at: [538.5,238.5] },
   { st: "PA", name: "Pittsburgh", n: 1, at: [771,242] },
   { st: "NC", name: "Charlotte", n: 2, at: [775.5,362.5] },
+  { st: "VA", name: "Richmond", n: 1, at: [826.5,299.5] },
 ];
 // properties blasted out to buyers (Dispo - Live Properties), pulled Nov 25, 2026
 const BLASTED = [
